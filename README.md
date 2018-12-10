@@ -1,2 +1,2 @@
 # AlphaChess
-Chess game that recommends best move based on tree search and minimax
+Chess game that recommends best move based on Monte Carlo Tree Search and Minimax algorithm.

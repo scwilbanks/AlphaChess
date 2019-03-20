@@ -41,8 +41,8 @@ On my machine, one 10,000 MCTS iterations from the starting position takes up 40
 
 I know from timing my code that the biggest time sink is copying the information into memory. Currently each node is implmented as a list of various types. See below for the data and their types:
 
-| parent    | branches   | board   | player | turn   | castlable_white  | castlable_black  | number | future value | UCT  |
-| reference | dictionary | 2D list | string | string | list of booleans | list of booleans | int    | int          | float|
+|-parent----|-branches---|-board---|-player-|-turn---|-castlable_white--|-castlable_black--|-number-|-future value-|-UCT---|
+|-reference-|-dictionary-|-2D list-|-string-|-string-|-list of booleans-|-list of booleans-|-int----|-int----------|-float-|
 
 TODOs:
 

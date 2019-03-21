@@ -1,7 +1,7 @@
 # AlphaChess
 
 AlphaChess is a Command Line Chess game with an AI player that recommends the best move at the current position based on Monte Carlo Tree Search and the Minimax algorithm.
-
+WP
 # Motivation
 
 My motivation is to create a Monte Carlo Tree Search (MCTS) program similar to DeepMind's AlphaGo, but for Chess and without a neural network. My particular interest is in how to develop algorithms that can make decisions without being excplicitly programed. AlphaGoZero was milestone in AI research for showing that not only is it effective for an AI system to make 'intelligent' decisions in complex situations with no a priori knowledge, but also that it can be much more effective than when programmed to take advantage of expert human advice.
@@ -41,8 +41,27 @@ On my machine, one 10,000 MCTS iterations from the starting position takes up 40
 
 I know from timing my code that the biggest time sink is copying the information into memory. Currently each node is implmented as a list of various types. See below for the data and their types:
 
-|-parent----|-branches---|-board---|-player-|-turn---|-castlable_white--|-castlable_black--|-number-|-future value-|-UCT---|
-|-reference-|-dictionary-|-2D list-|-string-|-string-|-list of booleans-|-list of booleans-|-int----|-int----------|-float-|
+
+Parent | Reference
+
+Branches | Dictionary
+
+Board | 2D List
+
+Player Color | String
+
+Turn | String
+
+Castleable White | List of 3 Booleans
+
+Castleable Black | List of 3 Booleans
+
+Visit Number | Int
+
+Future Value | Int
+
+UCT | Float
+
 
 TODOs:
 

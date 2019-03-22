@@ -37,7 +37,7 @@ The 'best' move is the move with the highest Visit Number, because it will have 
 ## Planned Optimizations
 
 ### Saving space = saving time
-On my machine, one 10,000 MCTS iterations from the starting position takes up 400MBs. This is a staggering amount of spacae and totally unsustainable at the scale required for this program to be useful. 
+On my machine, one 10,000 MCTS iterations from the starting position takes up 400MBs. This is a staggering amount of space and totally unsustainable at the scale required for this program to be useful. 
 
 I know from timing my code that the biggest time sink is copying the information into memory. Currently each node is implmented as a list of various types. See below for the data and their types:
 

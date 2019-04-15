@@ -694,11 +694,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\AlphaChess\\AlphaChess\\AlphaChess.csproj",
+      "projectUniqueName": "C:\\Users\\WWStudent\\AlphaChess\\AlphaChess\\AlphaChess.csproj",
       "projectName": "AlphaChess",
-      "projectPath": "C:\\AlphaChess\\AlphaChess\\AlphaChess.csproj",
+      "projectPath": "C:\\Users\\WWStudent\\AlphaChess\\AlphaChess\\AlphaChess.csproj",
       "packagesPath": "C:\\Users\\WWStudent\\.nuget\\packages\\",
-      "outputPath": "C:\\AlphaChess\\AlphaChess\\obj\\",
+      "outputPath": "C:\\Users\\WWStudent\\AlphaChess\\AlphaChess\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

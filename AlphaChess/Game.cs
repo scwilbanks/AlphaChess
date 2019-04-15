@@ -9,7 +9,7 @@ public class Game
 
     public Game()
     {
-
+        board = new BitArray();
     }
 
     private void InitializeNewGame()

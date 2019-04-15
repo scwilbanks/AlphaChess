@@ -3,18 +3,16 @@ using System.Collections;
 
 public class Game
 {
-    private BitArray board;
+    private BitArray CurrentBoardState;
     private String player_color;
     private Hashtable boards = new Hashtable();
 
     public Game()
     {
-        board = new BitArray();
     }
 
     private void InitializeNewGame()
     {
-        board = new BitArray(new Byte[1] { 0 });
         Console.WriteLine("What color would you like to be?");
         player_color = Console.ReadLine();
     }

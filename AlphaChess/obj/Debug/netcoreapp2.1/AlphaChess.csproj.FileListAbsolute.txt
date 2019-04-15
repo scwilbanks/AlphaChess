@@ -1,0 +1,11 @@
+C:\AlphaChess\AlphaChess\AlphaChess\obj\Debug\netcoreapp2.1\AlphaChess.csprojAssemblyReference.cache
+C:\AlphaChess\AlphaChess\AlphaChess\obj\Debug\netcoreapp2.1\AlphaChess.csproj.CoreCompileInputs.cache
+C:\AlphaChess\AlphaChess\AlphaChess\obj\Debug\netcoreapp2.1\AlphaChess.AssemblyInfoInputs.cache
+C:\AlphaChess\AlphaChess\AlphaChess\obj\Debug\netcoreapp2.1\AlphaChess.AssemblyInfo.cs
+C:\AlphaChess\AlphaChess\AlphaChess\bin\Debug\netcoreapp2.1\AlphaChess.deps.json
+C:\AlphaChess\AlphaChess\AlphaChess\bin\Debug\netcoreapp2.1\AlphaChess.runtimeconfig.json
+C:\AlphaChess\AlphaChess\AlphaChess\bin\Debug\netcoreapp2.1\AlphaChess.runtimeconfig.dev.json
+C:\AlphaChess\AlphaChess\AlphaChess\bin\Debug\netcoreapp2.1\AlphaChess.dll
+C:\AlphaChess\AlphaChess\AlphaChess\bin\Debug\netcoreapp2.1\AlphaChess.pdb
+C:\AlphaChess\AlphaChess\AlphaChess\obj\Debug\netcoreapp2.1\AlphaChess.dll
+C:\AlphaChess\AlphaChess\AlphaChess\obj\Debug\netcoreapp2.1\AlphaChess.pdb

@@ -1,0 +1,6 @@
+C:\Users\WWStudent\AlphaChess\bin\Debug\AlphaChess.exe.config
+C:\Users\WWStudent\AlphaChess\bin\Debug\AlphaChess.exe
+C:\Users\WWStudent\AlphaChess\bin\Debug\AlphaChess.pdb
+C:\Users\WWStudent\AlphaChess\obj\Debug\AlphaChess.csproj.CoreCompileInputs.cache
+C:\Users\WWStudent\AlphaChess\obj\Debug\AlphaChess.exe
+C:\Users\WWStudent\AlphaChess\obj\Debug\AlphaChess.pdb

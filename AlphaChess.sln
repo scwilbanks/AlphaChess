@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlphaChess", "AlphaChess\AlphaChess.csproj", "{CEAAFDEB-9EB8-4B4A-8521-96F0A235AE50}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlphaChess", "AlphaChess.csproj", "{E4B5FF7B-2E33-4FEA-BF59-A3E606E3F1AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{F0845B8B-33DA-4B54-836D-9D470665BA1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +13,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CEAAFDEB-9EB8-4B4A-8521-96F0A235AE50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CEAAFDEB-9EB8-4B4A-8521-96F0A235AE50}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CEAAFDEB-9EB8-4B4A-8521-96F0A235AE50}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CEAAFDEB-9EB8-4B4A-8521-96F0A235AE50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4B5FF7B-2E33-4FEA-BF59-A3E606E3F1AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4B5FF7B-2E33-4FEA-BF59-A3E606E3F1AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4B5FF7B-2E33-4FEA-BF59-A3E606E3F1AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4B5FF7B-2E33-4FEA-BF59-A3E606E3F1AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0845B8B-33DA-4B54-836D-9D470665BA1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0845B8B-33DA-4B54-836D-9D470665BA1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0845B8B-33DA-4B54-836D-9D470665BA1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0845B8B-33DA-4B54-836D-9D470665BA1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {E397B7A6-6E72-4888-9D77-511AA30DCD83}
+		SolutionGuid = {B25D4E6A-46DC-4064-874A-8C5429D60121}
 	EndGlobalSection
 EndGlobal

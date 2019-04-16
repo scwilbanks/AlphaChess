@@ -3,8 +3,11 @@ C:\Users\WWStudent\AlphaChess\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatfor
 C:\Users\WWStudent\AlphaChess\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
 C:\Users\WWStudent\AlphaChess\Tests\bin\Debug\Tests.dll
 C:\Users\WWStudent\AlphaChess\Tests\bin\Debug\Tests.pdb
+C:\Users\WWStudent\AlphaChess\Tests\bin\Debug\AlphaChess.exe
 C:\Users\WWStudent\AlphaChess\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 C:\Users\WWStudent\AlphaChess\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\WWStudent\AlphaChess\Tests\bin\Debug\AlphaChess.pdb
+C:\Users\WWStudent\AlphaChess\Tests\bin\Debug\AlphaChess.exe.config
 C:\Users\WWStudent\AlphaChess\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 C:\Users\WWStudent\AlphaChess\Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 C:\Users\WWStudent\AlphaChess\Tests\obj\Debug\Tests.csprojAssemblyReference.cache

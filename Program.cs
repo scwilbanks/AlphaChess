@@ -2,15 +2,15 @@
 
 namespace AlphaChess
 {
-    class Program
+    public class Program
     {
 
-        static void Main(string[] args)
+        public static void Main()
         {
             Game game = new Game();
+
             game.Start();
-            Console.WriteLine("Done");
-            Console.ReadKey();
+
         }
     }
 }

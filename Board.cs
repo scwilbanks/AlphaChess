@@ -20,6 +20,12 @@ namespace AlphaChess
     {
 
         // Static Methods
+        public static BitArray GetStartingBoard()
+        {
+            return new BitArray(StartingBoardArray);
+        }
+
+
         public static bool[] StartingBoardArray = new bool[]
         {
 
@@ -66,82 +72,79 @@ namespace AlphaChess
             true, true, true, false, false, true,
 
             // White Other Pieces, 1-8
-            // TODO
             // WR1
             false, false, false, false, false, false,
 
             // WN1
-            false, false, false, false, false, false,
+            false, false, true, false, false, false,
 
             // WB1
-            false, false, false, false, false, false,
+            false, true, false, false, false, false,
 
             // WQ
-            false, false, false, false, false, false,
+            false, true, true, false, false, false,
 
             // WK
-            false, false, false, false, false, false,
+            true, false, false, false, false, false,
 
             // WB2
-            false, false, false, false, false, false,
+            true, false, true, false, false, false,
 
             // WN2
-            false, false, false, false, false, false,
+            true, true, false, false, false, false,
 
             // WR2
-            false, false, false, false, false, false,
+            true, true, true, false, false, false,
 
             // Black Pawns, 1-8
-            // TODO
             // BP1
-            false, false, false, false, false, false,
+            false, false, false, true, true, false,
 
             // BP2
-            false, false, false, false, false, false,
+            false, false, true, true, true, false,
 
             // BP3
-            false, false, false, false, false, false,
+            false, true, false, true, true, false,
 
             // BP4
-            false, false, false, false, false, false,
+            false, true, true, true, true, false,
 
             // BP5
-            false, false, false, false, false, false,
+            true, false, false, true, true, false,
 
             // BP6
-            false, false, false, false, false, false,
+            true, false, true, true, true, false,
 
             // BP7
-            false, false, false, false, false, false,
+            true, true, false, true, true, false,
 
             // BP8
-            false, false, false, false, false, false,
+            true, true, true, true, true, false,
 
             // Black Other Pieces, 1-8
-            // TODO
             // BR1
-            false, false, false, false, false, false,
+            false, false, false, true, true, true,
 
             // BN1
-            false, false, false, false, false, false,
+            false, false, true, true, true, true,
 
             // BB1
-            false, false, false, false, false, false,
+            false, true, false, true, true, true,
 
             // BQ
-            false, false, false, false, false, false,
+            false, true, true, true, true, true,
 
             // BK
-            false, false, false, false, false, false,
+            true, false, false, true, true, true,
 
             // BB2
-            false, false, false, false, false, false,
+            true, false, true, true, true, true,
 
             // BN2
-            false, false, false, false, false, false,
+            true, true, false, true, true, true,
 
             // BR2
-            false, false, false, false, false, false,
+            true, true, true, true, true, true,
 
             // Turn
             true,
@@ -153,13 +156,6 @@ namespace AlphaChess
             true
 
         };
-
-
-        public static BitArray GetStartingBoard()
-        {
-            return new BitArray(StartingBoardArray);
-        }
-
 
     }
 }

@@ -142,6 +142,7 @@ namespace AlphaChess
         private void PrintCurrentBoard()
         {
             Console.WriteLine("Printing board");
+
         }
 
 

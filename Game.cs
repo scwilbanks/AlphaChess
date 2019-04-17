@@ -141,7 +141,17 @@ namespace AlphaChess
 
         private void PrintCurrentBoard()
         {
-            Console.WriteLine("Printing board");
+            Console.WriteLine("Current Board:");
+            Console.WriteLine("      a     b     c     d     e     f     g     h");
+            for (int i = 8; i > 0; i--)
+            {
+                Console.WriteLine("   " + " -----" + " -----" + " -----" + " -----" + " -----" + " -----" + " -----" + " -----");
+                Console.WriteLine(" {0} |  ", i);
+
+            }
+            Console.WriteLine("   " + " -----" + " -----" + " -----" + " -----" + " -----" + " -----" + " -----" + " -----");
+            Console.WriteLine("      a     b     c     d     e     f     g     h");
+
 
         }
 

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
+
+
 
 namespace AlphaChess
 {
+
 
     /// <summary>
     /// 
@@ -17,6 +19,8 @@ namespace AlphaChess
     {
 
         // Static Methods
+
+
         // This will likely be deleted, pending the bitboard implementation
         public static BitArray GetStartingBoard()
         {
@@ -158,27 +162,29 @@ namespace AlphaChess
 
 
         // Properties
+
+
         // Tree references
         Board Parent { get; set; }
         Board[] Children { get; set; }
 
         //White Pieces
-        ulong WhiteKing { get; set; }
-        ulong WhiteQueen { get; set; }
-        ulong WhiteRooks { get; set; }
-        ulong WhiteBishops { get; set; }
-        ulong WhiteKnights { get; set; }
-        ulong WhitePawns { get; set; }
-        ulong WhitePieces { get; set; }
+        public ulong WhiteKing { get; set; }
+        public ulong WhiteQueen { get; set; }
+        public ulong WhiteRooks { get; set; }
+        public ulong WhiteBishops { get; set; }
+        public ulong WhiteKnights { get; set; }
+        public ulong WhitePawns { get; set; }
+        public ulong WhitePieces { get; set; }
 
         // Black Pieces
-        ulong BlackKing { get; set; }
-        ulong BlackQueen { get; set; }
-        ulong BlackRooks { get; set; }
-        ulong BlackBishops { get; set; }
-        ulong BlackKnights { get; set; }
-        ulong BlackPawns { get; set; }
-        ulong BlackPieces { get; set; }
+        public ulong BlackKing { get; set; }
+        public ulong BlackQueen { get; set; }
+        public ulong BlackRooks { get; set; }
+        public ulong BlackBishops { get; set; }
+        public ulong BlackKnights { get; set; }
+        public ulong BlackPawns { get; set; }
+        public ulong BlackPieces { get; set; }
 
         // Various Board Data
         public bool TurnIsWhite { get; set; }
@@ -194,6 +200,7 @@ namespace AlphaChess
         
 
         // Constructors
+
 
         // Constructor for starting board
         public Board()
@@ -212,6 +219,7 @@ namespace AlphaChess
 
 
         // Initializers
+
 
         // Initializes the White pieces bitboards properties
         private void InitializeWhitePieces()
@@ -248,7 +256,7 @@ namespace AlphaChess
                          (ulong)Math.Pow(2, 52) +
                          (ulong)Math.Pow(2, 53) +
                          (ulong)Math.Pow(2, 54) +
-                         (ulong)Math.Pow(2, 45);
+                         (ulong)Math.Pow(2, 55);
 
             BlackPieces |= BlackKing;
             BlackPieces |= BlackQueen;
@@ -286,11 +294,12 @@ namespace AlphaChess
 
         // Update Methods
 
+
         // Changes all board data to coorespond to the state after the move is made
         // TODO
         private void MakeMove(Int16 move)
         {
-
+            // To be implemented
         }
 
 
@@ -298,7 +307,7 @@ namespace AlphaChess
         // TODO
         private void InitializeChildren()
         {
-
+            // To be implemented
         }
     }
 }

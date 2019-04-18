@@ -6,8 +6,17 @@ using System.Threading.Tasks;
 
 namespace AlphaChess
 {
+
+    /// <summary>
+    /// 
+    /// The MCTS class provides static methods to conduct Monte Carlo Tree
+    /// Search on a Board instance.
+    /// 
+    /// </summary>
+
+
     static class MCTS
     {
-        //Static Class for MCTS methods
+        // To be implemented
     }
 }

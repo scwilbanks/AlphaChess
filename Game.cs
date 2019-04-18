@@ -1,5 +1,7 @@
-﻿using System;
+﻿using AlphaChess.Printing;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace AlphaChess
 {
@@ -129,73 +131,28 @@ namespace AlphaChess
             
         }
 
-
+        // TODO
         public bool IsGameOver()
         {
             return false;
         }
 
-        // Returns two dimensional array representing what to print in each square
+
         // TODO
-        private string[,] GetSquares()
-        {
-            string[,] Squares = new string[8, 8];
-
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    Squares[i, j] = "   ";
-                }
-            }
-            return Squares;
-        }
-
-
-        // Prints the current board position to the console 
-        // TODO
-        private void PrintCurrentBoard()
-        {
-            string[,] Squares = GetSquares();
-
-            Console.WriteLine("Current Board:");
-            Console.WriteLine("      a     b     c     d     e     f     g     h");
-            for (int i = 0; i < 8; i++)
-            {
-                Console.WriteLine("   " + " -----" + " -----" + " -----" + " -----" + " -----" + " -----" + " -----" + " -----");
-                Console.Write(" {0} |", 8-i);
-                for (int j = 0; j < 8; j++)
-                {
-                    Console.Write(" {0} |", Squares[i, j]);
-                }
-                Console.WriteLine(" {0}", 8-i);
-
-            }
-            Console.WriteLine("   " + " -----" + " -----" + " -----" + " -----" + " -----" + " -----" + " -----" + " -----");
-            Console.WriteLine("      a     b     c     d     e     f     g     h");
-
-
-        }
-
-
-        private void PrintCurrentMoves()
-        {
-            Console.WriteLine("Printing current moves");
-        }
-
-
         private void MakePlayerMove()
         {
             Console.WriteLine("Making the Player's move");
         }
 
 
+        // TODO
         private void MakeOpponentMove()
         {
             Console.WriteLine("Making the Opponent's move");
         }
 
 
+        // TODO
         private void MCTS()
         {
             Console.WriteLine("Conducting MCTS");
@@ -225,8 +182,9 @@ namespace AlphaChess
         {
             Console.WriteLine("Executing Player Turn:");
             MCTS();
-            PrintCurrentBoard();
-            PrintCurrentMoves();
+            Printer printer = new Printer(CurrentBoard);
+            printer.PrintCurrentBoard();
+            printer.PrintCurrentMoves();
             MakePlayerMove();
             return;
         }
@@ -236,9 +194,9 @@ namespace AlphaChess
         {
             Console.WriteLine("Executing Opponent Turn:");
             MCTS();
-            PrintCurrentBoard();
-            PrintCurrentMoves();
-            MakeOpponentMove();
+            Printer printer = new Printer(CurrentBoard);
+            printer.PrintCurrentBoard();
+            printer.PrintCurrentMoves();
             return;
         }
 

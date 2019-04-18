@@ -8,10 +8,8 @@ namespace AlphaChess
 
 
         // Properties
-        public bool PlayerColorIsWhite { get; private set; }
-        public BitArray CurrentBoardState { get; private set; }
-        public Hashtable Boards { get; private set; }
-        public bool TurnIsWhite { get; private set; }
+        public bool PlayerColorIsWhite { get; set; }
+        public Board CurrentBoard { get; set; }
 
 
         // Static Methods
@@ -114,9 +112,8 @@ namespace AlphaChess
         public Game()
         {
             PlayerColorIsWhite = GetColor();
-            CurrentBoardState = GetStartingBoard();
-            Boards = GetStartingBoards();
-            TurnIsWhite = true;
+            CurrentBoard = new Board();
+
         }
 
 
@@ -138,15 +135,40 @@ namespace AlphaChess
             return false;
         }
 
+        // Returns two dimensional array representing what to print in each square
+        // TODO
+        private string[,] GetSquares()
+        {
+            string[,] Squares = new string[8, 8];
 
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    Squares[i, j] = "   ";
+                }
+            }
+            return Squares;
+        }
+
+
+        // Prints the current board position to the console 
+        // TODO
         private void PrintCurrentBoard()
         {
+            string[,] Squares = GetSquares();
+
             Console.WriteLine("Current Board:");
             Console.WriteLine("      a     b     c     d     e     f     g     h");
-            for (int i = 8; i > 0; i--)
+            for (int i = 0; i < 8; i++)
             {
                 Console.WriteLine("   " + " -----" + " -----" + " -----" + " -----" + " -----" + " -----" + " -----" + " -----");
-                Console.WriteLine(" {0} |  ", i);
+                Console.Write(" {0} |", 8-i);
+                for (int j = 0; j < 8; j++)
+                {
+                    Console.Write(" {0} |", Squares[i, j]);
+                }
+                Console.WriteLine(" {0}", 8-i);
 
             }
             Console.WriteLine("   " + " -----" + " -----" + " -----" + " -----" + " -----" + " -----" + " -----" + " -----");
@@ -183,11 +205,11 @@ namespace AlphaChess
         private void ExecuteNextTurn()
         {
 
-            if (PlayerColorIsWhite == TurnIsWhite)
+            if (PlayerColorIsWhite == CurrentBoard.TurnIsWhite)
             {
                 ExecutePlayerTurn();
             }
-            else if (PlayerColorIsWhite != TurnIsWhite)
+            else if (PlayerColorIsWhite != CurrentBoard.TurnIsWhite)
             {
                 ExecuteOpponentTurn();
             }
@@ -195,7 +217,7 @@ namespace AlphaChess
 
             Console.WriteLine();
             Console.ReadKey();
-            TurnIsWhite = !TurnIsWhite;
+            CurrentBoard.TurnIsWhite = !CurrentBoard.TurnIsWhite;
         }
 
 

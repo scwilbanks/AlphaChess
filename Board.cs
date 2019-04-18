@@ -1,23 +1,30 @@
 ﻿using System;
 using System.Collections;
-
+using System.Collections.Generic;
 
 namespace AlphaChess
 {
 
-    /* This class encapsulates a set of bitboards to represent the board state.
-     * It also holds the current turn, and whether or not each player can castle.*/
+    /// <summary>
+    /// 
+    /// This class encapsulates a set of bitboards to represent the board state.
+    /// It also holds the current turn, and whether or not each player can castle.
+    /// 
+    /// </summary>
 
 
     public class Board
     {
 
         // Static Methods
+        // This will likely be deleted, pending the bitboard implementation
         public static BitArray GetStartingBoard()
         {
             return new BitArray(StartingBoardArray);
         }
 
+
+        // This will likely be deleted, pending the bitboard implementation
         public static bool[] StartingBoardArray = new bool[]
         {
 
@@ -151,40 +158,70 @@ namespace AlphaChess
 
 
         // Properties
-        UInt64 WhiteKing;
-        UInt64 WhiteQueen;
-        UInt64 WhiteRooks;
-        UInt64 WhiteBishops;
-        UInt64 WhiteKnights;
-        UInt64 WhitePawns;
+        // Tree references
+        Board Parent { get; set; }
+        Board[] Children { get; set; }
 
-        UInt64 WhitePieces;
+        //White Pieces
+        ulong WhiteKing { get; set; }
+        ulong WhiteQueen { get; set; }
+        ulong WhiteRooks { get; set; }
+        ulong WhiteBishops { get; set; }
+        ulong WhiteKnights { get; set; }
+        ulong WhitePawns { get; set; }
+        ulong WhitePieces { get; set; }
 
-        UInt64 BlackKing;
-        UInt64 BlackQueen;
-        UInt64 BlackRooks;
-        UInt64 BlackBishops;
-        UInt64 BlackKnights;
-        UInt64 BlackPawns;
+        // Black Pieces
+        ulong BlackKing { get; set; }
+        ulong BlackQueen { get; set; }
+        ulong BlackRooks { get; set; }
+        ulong BlackBishops { get; set; }
+        ulong BlackKnights { get; set; }
+        ulong BlackPawns { get; set; }
+        ulong BlackPieces { get; set; }
 
-        UInt64 BlackPieces;
+        // Various Board Data
+        public bool TurnIsWhite { get; set; }
+        bool CanWhiteCastle { get; set; }
+        bool CanBlackCastle { get; set; }
+        bool IsWhiteInCheck { get; set; }
+        bool IsBlackInCheck { get; set; }
 
+        // MCTS Data
+        int VisitNumber { get; set; }
+        int Value { get; set; }
+        float UCT { get; set; }
+        
 
+        // Constructors
+
+        // Constructor for starting board
         public Board()
         {
             InitializeBoard();
+            SetStartingBoardData();
         }
 
-        private void InitializeBoard()
-        {
 
+        // Constructor for all other boards, takes current board and move and returns new Board object after that move is made
+        public Board(Board board, Int16 move)
+        {
+            MakeMove(move);
+
+        }
+
+
+        // Initializers
+
+        // Initializes the White pieces bitboards properties
+        private void InitializeWhitePieces()
+        {
             WhiteKing = 16;
             WhiteQueen = 8;
             WhiteRooks = 129;
             WhiteBishops = 36;
             WhiteKnights = 66;
             WhitePawns = 65280;
-
 
             WhitePieces |= WhiteKing;
             WhitePieces |= WhiteQueen;
@@ -193,20 +230,25 @@ namespace AlphaChess
             WhitePieces |= WhiteKnights;
             WhitePieces |= WhitePawns;
 
+        }
 
-            BlackKing = (UInt64)Math.Pow(2, 60);
-            BlackQueen = (UInt64)Math.Pow(2, 59);
-            BlackRooks = (UInt64)Math.Pow(2, 56) + (UInt64)Math.Pow(2, 63);
-            BlackBishops = (UInt64)Math.Pow(2, 58) + (UInt64)Math.Pow(2, 61);
-            BlackKnights = (UInt64)Math.Pow(2, 57) + (UInt64)Math.Pow(2, 62);
-            BlackPawns = (UInt64)Math.Pow(2, 48) +
-                         (UInt64)Math.Pow(2, 49) +
-                         (UInt64)Math.Pow(2, 50) +
-                         (UInt64)Math.Pow(2, 51) +
-                         (UInt64)Math.Pow(2, 52) +
-                         (UInt64)Math.Pow(2, 53) +
-                         (UInt64)Math.Pow(2, 54) +
-                         (UInt64)Math.Pow(2, 45);
+
+        // Initializes the Black pieces bitboards properties
+        private void InitializeBlackPieces()
+        {
+            BlackKing = (ulong)Math.Pow(2, 60);
+            BlackQueen = (ulong)Math.Pow(2, 59);
+            BlackRooks = (ulong)Math.Pow(2, 56) + (ulong)Math.Pow(2, 63);
+            BlackBishops = (ulong)Math.Pow(2, 58) + (ulong)Math.Pow(2, 61);
+            BlackKnights = (ulong)Math.Pow(2, 57) + (ulong)Math.Pow(2, 62);
+            BlackPawns = (ulong)Math.Pow(2, 48) +
+                         (ulong)Math.Pow(2, 49) +
+                         (ulong)Math.Pow(2, 50) +
+                         (ulong)Math.Pow(2, 51) +
+                         (ulong)Math.Pow(2, 52) +
+                         (ulong)Math.Pow(2, 53) +
+                         (ulong)Math.Pow(2, 54) +
+                         (ulong)Math.Pow(2, 45);
 
             BlackPieces |= BlackKing;
             BlackPieces |= BlackQueen;
@@ -215,8 +257,48 @@ namespace AlphaChess
             BlackPieces |= BlackKnights;
             BlackPieces |= BlackPawns;
 
+        }
+
+
+        // Sets values for initial board position
+        private void SetStartingBoardData()
+        {
+            TurnIsWhite = true;
+            CanWhiteCastle = true;
+            CanBlackCastle = true;
+            IsWhiteInCheck = false;
+            IsBlackInCheck = false;
+            VisitNumber = 0;
+            Value = 0;
+        }
+
+
+        // Initializes White and Black pieces bitboards
+        private void InitializeBoard()
+        {
+
+            InitializeWhitePieces();
+            InitializeBlackPieces();
+
 
         }
 
+
+        // Update Methods
+
+        // Changes all board data to coorespond to the state after the move is made
+        // TODO
+        private void MakeMove(Int16 move)
+        {
+
+        }
+
+
+        // Initializes child boards and sets the Children Property
+        // TODO
+        private void InitializeChildren()
+        {
+
+        }
     }
 }

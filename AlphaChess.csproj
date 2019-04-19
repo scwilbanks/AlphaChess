@@ -46,7 +46,7 @@
     <Compile Include="Board.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="MCTS.cs" />
-    <Compile Include="Move.cs" />
+    <Compile Include="Moves\MoveGenerator.cs" />
     <Compile Include="Printing\Pieces.cs" />
     <Compile Include="Printing\Printer.cs" />
     <Compile Include="Program.cs" />

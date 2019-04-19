@@ -17,7 +17,7 @@ namespace AlphaChess.Printing
         public Tuple<Tuple<int, int>, string> GetWhiteKing()
         {
             Tuple<int, int> Square = GetLocation(CurrentBoard.WhiteKing);
-            string _String = "WK ";
+            string _String = "WK";
 
             Tuple<Tuple<int, int>, string> Result = Tuple.Create(Square, _String);
 
@@ -29,7 +29,7 @@ namespace AlphaChess.Printing
         public Tuple<Tuple<int, int>, string> GetWhiteQueen()
         {
             Tuple<int, int> Square = GetLocation(CurrentBoard.WhiteQueen);
-            string _String = "WQ ";
+            string _String = "WQ";
 
             Tuple<Tuple<int, int>, string> Result = Tuple.Create(Square, _String);
 
@@ -44,15 +44,13 @@ namespace AlphaChess.Printing
 
             ulong Rooks = CurrentBoard.WhiteRooks;
 
-            int Count = 1;
-
             ulong Position = 1;
             while (Rooks > 0)
             {
                 if (Rooks % 2 == 1)
                 {
                     Tuple<int, int> Square = GetLocation(Position);
-                    string _String = $"WR{Count++}";
+                    string _String = $"WR";
 
 
                     Results.Add(Tuple.Create(Square, _String));
@@ -80,15 +78,13 @@ namespace AlphaChess.Printing
 
             ulong Bishops = CurrentBoard.WhiteBishops;
 
-            int Count = 1;
-
             ulong Position = 1;
             while (Bishops > 0)
             {
                 if (Bishops % 2 == 1)
                 {
                     Tuple<int, int> Square = GetLocation(Position);
-                    string _String = $"WB{Count++}";
+                    string _String = $"WB";
 
 
                     Results.Add(Tuple.Create(Square, _String));
@@ -116,15 +112,13 @@ namespace AlphaChess.Printing
 
             ulong Knights = CurrentBoard.WhiteKnights;
 
-            int Count = 1;
-
             ulong Position = 1;
             while (Knights > 0)
             {
                 if (Knights % 2 == 1)
                 {
                     Tuple<int, int> Square = GetLocation(Position);
-                    string _String = $"WK{Count++}";
+                    string _String = $"WN";
 
 
                     Results.Add(Tuple.Create(Square, _String));
@@ -152,15 +146,13 @@ namespace AlphaChess.Printing
 
             ulong Pawns = CurrentBoard.WhitePawns;
 
-            int Count = 1;
-
             ulong Position = 1;
             while (Pawns > 0)
             {
                 if (Pawns % 2 == 1)
                 {
                     Tuple<int, int> Square = GetLocation(Position);
-                    string _String = $"WP{Count++}";
+                    string _String = $"WP";
 
 
                     Results.Add(Tuple.Create(Square, _String));
@@ -185,7 +177,7 @@ namespace AlphaChess.Printing
         public Tuple<Tuple<int, int>, string> GetBlackKing()
         {
             Tuple<int, int> Square = GetLocation(CurrentBoard.BlackKing);
-            string _String = "BK ";
+            string _String = "BK";
 
             Tuple<Tuple<int, int>, string> Result = Tuple.Create(Square, _String);
 
@@ -197,7 +189,7 @@ namespace AlphaChess.Printing
         public Tuple<Tuple<int, int>, string> GetBlackQueen()
         {
             Tuple<int, int> Square = GetLocation(CurrentBoard.BlackQueen);
-            string _String = "BQ ";
+            string _String = "BQ";
 
             Tuple<Tuple<int, int>, string> Result = Tuple.Create(Square, _String);
 
@@ -212,15 +204,13 @@ namespace AlphaChess.Printing
 
             ulong Rooks = CurrentBoard.BlackRooks;
 
-            int Count = 1;
-
             ulong Position = 1;
             while (Rooks > 0)
             {
                 if (Rooks % 2 == 1)
                 {
                     Tuple<int, int> Square = GetLocation(Position);
-                    string _String = $"BR{Count++}";
+                    string _String = $"BR";
 
 
                     Results.Add(Tuple.Create(Square, _String));
@@ -248,15 +238,13 @@ namespace AlphaChess.Printing
 
             ulong Bishops = CurrentBoard.BlackBishops;
 
-            int Count = 1;
-
             ulong Position = 1;
             while (Bishops > 0)
             {
                 if (Bishops % 2 == 1)
                 {
                     Tuple<int, int> Square = GetLocation(Position);
-                    string _String = $"BB{Count++}";
+                    string _String = $"BB";
 
 
                     Results.Add(Tuple.Create(Square, _String));
@@ -284,15 +272,13 @@ namespace AlphaChess.Printing
 
             ulong Knights = CurrentBoard.BlackKnights;
 
-            int Count = 1;
-
             ulong Position = 1;
             while (Knights > 0)
             {
                 if (Knights % 2 == 1)
                 {
                     Tuple<int, int> Square = GetLocation(Position);
-                    string _String = $"BK{Count++}";
+                    string _String = $"BN";
 
 
                     Results.Add(Tuple.Create(Square, _String));
@@ -320,15 +306,13 @@ namespace AlphaChess.Printing
 
             ulong Pawns = CurrentBoard.BlackPawns;
 
-            int Count = 1;
-
             ulong Position = 1;
             while (Pawns > 0)
             {
                 if (Pawns % 2 == 1)
                 {
                     Tuple<int, int> Square = GetLocation(Position);
-                    string _String = $"BP{Count++}";
+                    string _String = $"BP";
 
 
                     Results.Add(Tuple.Create(Square, _String));

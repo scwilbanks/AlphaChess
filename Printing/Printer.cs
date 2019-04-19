@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlphaChess.Moves;
+using System;
 using System.Collections.Generic;
 
 
@@ -134,7 +135,7 @@ namespace AlphaChess.Printing
                     }
                     else
                     {
-                        Squares[i, j] = "   ";
+                        Squares[i, j] = "  ";
                     }
                 }
             }
@@ -148,10 +149,10 @@ namespace AlphaChess.Printing
             string[,] Squares = GetSquares();
 
             Console.WriteLine("Current Board:");
-            Console.WriteLine("      a     b     c     d     e     f     g     h");
+            Console.WriteLine("     a    b    c    d    e    f    g    h");
             for (int i = 7; i >= 0; i--)
             {
-                Console.WriteLine("   " + " -----" + " -----" + " -----" + " -----" + " -----" + " -----" + " -----" + " -----");
+                Console.WriteLine("    ---------------------------------------");
                 Console.Write(" {0} |", i + 1);
                 for (int j = 0; j < 8; j++)
                 {
@@ -160,8 +161,8 @@ namespace AlphaChess.Printing
                 Console.WriteLine(" {0}", i + 1);
 
             }
-            Console.WriteLine("   " + " -----" + " -----" + " -----" + " -----" + " -----" + " -----" + " -----" + " -----");
-            Console.WriteLine("      a     b     c     d     e     f     g     h");
+            Console.WriteLine("    ---------------------------------------");
+            Console.WriteLine("     a    b    c    d    e    f    g    h");
 
             if (CurrentBoard.TurnIsWhite)
             {
@@ -175,11 +176,16 @@ namespace AlphaChess.Printing
 
         }
 
+
         // Prints the current possible moves to the console
         // TODO
         public void PrintCurrentMoves()
         {
             Console.WriteLine("Printing current moves");
+            foreach (var move in MoveGenerator.GetMoves(CurrentBoard))
+            {
+                Console.WriteLine($"{move}");
+            }
         }
     }
 }

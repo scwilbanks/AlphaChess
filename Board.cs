@@ -1,7 +1,7 @@
-﻿using System;
+﻿using AlphaChess.Moves;
+using System;
 using System.Collections;
-
-
+using System.Collections.Generic;
 
 namespace AlphaChess
 {
@@ -17,148 +17,6 @@ namespace AlphaChess
 
     public class Board
     {
-
-        // Static Methods
-
-
-        // This will likely be deleted, pending the bitboard implementation
-        public static BitArray GetStartingBoard()
-        {
-            return new BitArray(StartingBoardArray);
-        }
-
-
-        // This will likely be deleted, pending the bitboard implementation
-        public static bool[] StartingBoardArray = new bool[]
-        {
-
-            // Taken
-            // White Pawns, index 0
-            false, false, false, false, false, false, false, false,
-
-            // White Other Pieces, index 8
-            false, false, false, false, false, false, false, false,
-
-            // Black Pawns, index 16
-            false, false, false, false, false, false, false, false,
-
-            // Black Other Pieces, index 24
-            false, false, false, false, false, false, false, false,
-
-
-            // Locations
-            // First three bools represent A-H columns
-            // Second three bools represent 1-8 rows
-            //
-            // WP1, index 32
-            false, false, false, false, false, true,
-
-            // WP2, index 38
-            false, false, true, false, false, true,
-
-            // WP3, index 44
-            false, true, false, false, false, true,
-
-            // WP4, index 50
-            false, true, true, false, false, true,
-
-            // WP5, index 56
-            true, false, false, false, false, true,
-
-            // WP6, index 62
-            true, false, true, false, false, true,
-
-            // WP7, index 68
-            true, true, false, false, false, true,
-
-            // WP8, index 74
-            true, true, true, false, false, true,
-
-            // White Other Pieces, 1-8
-            // WR1, index 80
-            false, false, false, false, false, false,
-
-            // WN1, index 86
-            false, false, true, false, false, false,
-
-            // WB1, index 92
-            false, true, false, false, false, false,
-
-            // WQ, index 98
-            false, true, true, false, false, false,
-
-            // WK, index 104
-            true, false, false, false, false, false,
-
-            // WB2, index 110
-            true, false, true, false, false, false,
-
-            // WN2, index 116
-            true, true, false, false, false, false,
-
-            // WR2, index 122
-            true, true, true, false, false, false,
-
-            // Black Pawns, 1-8
-            // BP1, index 128
-            false, false, false, true, true, false,
-
-            // BP2, index 134
-            false, false, true, true, true, false,
-
-            // BP3, index 140
-            false, true, false, true, true, false,
-
-            // BP4, index 146
-            false, true, true, true, true, false,
-
-            // BP5, index 152
-            true, false, false, true, true, false,
-
-            // BP6, index 158
-            true, false, true, true, true, false,
-
-            // BP7, index 164
-            true, true, false, true, true, false,
-
-            // BP8, index 170
-            true, true, true, true, true, false,
-
-            // Black Other Pieces, 1-8
-            // BR1, index 176
-            false, false, false, true, true, true,
-
-            // BN1, index 182
-            false, false, true, true, true, true,
-
-            // BB1, index 188
-            false, true, false, true, true, true,
-
-            // BQ, index 194
-            false, true, true, true, true, true,
-
-            // BK, index 200
-            true, false, false, true, true, true,
-
-            // BB2, index 206
-            true, false, true, true, true, true,
-
-            // BN2, index 212
-            true, true, false, true, true, true,
-
-            // BR2, index 218
-            true, true, true, true, true, true,
-
-            // Turn, index 224
-            true,
-
-            // Can White castle, index 225
-            true,
-
-            // Can Black castle, index 226
-            true
-
-        };
 
 
         // Properties
@@ -187,6 +45,7 @@ namespace AlphaChess
         public ulong BlackPieces { get; set; }
 
         // Various Board Data
+        public ulong EligibleSquares { get; set; }
         public bool TurnIsWhite { get; set; }
         bool CanWhiteCastle { get; set; }
         bool CanBlackCastle { get; set; }
@@ -207,11 +66,12 @@ namespace AlphaChess
         {
             InitializeBoard();
             SetStartingBoardData();
+            InitializeChildren();
         }
 
 
         // Constructor for all other boards, takes current board and move and returns new Board object after that move is made
-        public Board(Board board, Int16 move)
+        public Board(Board board, Tuple<ulong, ulong> move)
         {
             MakeMove(move);
 
@@ -271,6 +131,8 @@ namespace AlphaChess
         // Sets values for initial board position
         private void SetStartingBoardData()
         {
+            Parent = null;
+            EligibleSquares = TurnIsWhite ? ~BlackPieces : ~WhitePieces;
             TurnIsWhite = true;
             CanWhiteCastle = true;
             CanBlackCastle = true;
@@ -297,17 +159,26 @@ namespace AlphaChess
 
         // Changes all board data to coorespond to the state after the move is made
         // TODO
-        private void MakeMove(Int16 move)
+        private void MakeMove(Tuple<ulong, ulong> move)
         {
             // To be implemented
         }
 
 
         // Initializes child boards and sets the Children Property
-        // TODO
         private void InitializeChildren()
         {
-            // To be implemented
+            Tuple<ulong, ulong>[] MovesArray = MoveGenerator.GetMoves(this);
+            List<Board> ChildrenList = new List<Board>();
+
+            foreach (Tuple<ulong, ulong> move in MovesArray)
+            {
+                Board ChildBoard = new Board(this, move);
+                ChildrenList.Add(ChildBoard);
+            }
+
+            Children = ChildrenList.ToArray();
+
         }
     }
 }

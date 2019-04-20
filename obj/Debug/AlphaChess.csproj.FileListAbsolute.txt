@@ -5,3 +5,10 @@ C:\Users\WWStudent\AlphaChess\obj\Debug\AlphaChess.csproj.CoreCompileInputs.cach
 C:\Users\WWStudent\AlphaChess\obj\Debug\AlphaChess.exe
 C:\Users\WWStudent\AlphaChess\obj\Debug\AlphaChess.pdb
 C:\Users\WWStudent\AlphaChess\obj\Debug\AlphaChess.csprojAssemblyReference.cache
+C:\Users\Smith\alphachess\bin\Debug\AlphaChess.exe.config
+C:\Users\Smith\alphachess\bin\Debug\AlphaChess.exe
+C:\Users\Smith\alphachess\bin\Debug\AlphaChess.pdb
+C:\Users\Smith\alphachess\obj\Debug\AlphaChess.csprojAssemblyReference.cache
+C:\Users\Smith\alphachess\obj\Debug\AlphaChess.csproj.CoreCompileInputs.cache
+C:\Users\Smith\alphachess\obj\Debug\AlphaChess.exe
+C:\Users\Smith\alphachess\obj\Debug\AlphaChess.pdb

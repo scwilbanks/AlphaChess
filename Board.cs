@@ -178,7 +178,6 @@ namespace AlphaChess
             }
 
             Children = ChildrenList.ToArray();
-
         }
     }
 }

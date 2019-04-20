@@ -46,7 +46,13 @@
     <Compile Include="Board.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="MCTS.cs" />
+    <Compile Include="Moves\BishopsMoves.cs" />
+    <Compile Include="Moves\KingMoves.cs" />
+    <Compile Include="Moves\KnightMoves.cs" />
     <Compile Include="Moves\MoveGenerator.cs" />
+    <Compile Include="Moves\PawnsMoves.cs" />
+    <Compile Include="Moves\QueenMoves.cs" />
+    <Compile Include="Moves\RookMoves.cs" />
     <Compile Include="Printing\Pieces.cs" />
     <Compile Include="Printing\Printer.cs" />
     <Compile Include="Program.cs" />

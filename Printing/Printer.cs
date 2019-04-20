@@ -177,14 +177,70 @@ namespace AlphaChess.Printing
         }
 
 
+        // Formats the move into a string, ex. "Knight b1 to a3"
+        public string FormatMove(Tuple<ulong, ulong> move)
+        {
+            string MoveString = "";
+
+            if (((CurrentBoard.WhiteKing & move.Item1) > 0) || ((CurrentBoard.BlackKing & move.Item1) > 0)) 
+            {
+                MoveString += "King ";
+            }
+            else if (((CurrentBoard.WhiteQueen & move.Item1) > 0) || ((CurrentBoard.BlackQueen & move.Item1) > 0))
+            {
+                MoveString += "Queen ";
+            }
+            else if (((CurrentBoard.WhiteRooks & move.Item1) > 0) || ((CurrentBoard.BlackRooks & move.Item1) > 0))
+            {
+                MoveString += "Rook ";
+            }
+            else if (((CurrentBoard.WhiteBishops & move.Item1) > 0) || ((CurrentBoard.BlackBishops & move.Item1) > 0))
+            {
+                MoveString += "Bishop ";
+            }
+            else if (((CurrentBoard.WhiteKnights & move.Item1) > 0) || ((CurrentBoard.BlackKnights & move.Item1) > 0))
+            {
+                MoveString += "Knight ";
+            }
+            else if (((CurrentBoard.WhitePawns & move.Item1) > 0) || ((CurrentBoard.BlackPawns & move.Item1) > 0))
+            {
+                MoveString += "Pawn ";
+            }
+            else
+            {
+                throw new Exception();
+            }
+
+
+            Tuple<int, int> PieceLocation = GetLocation(move.Item1);
+            string PieceRank = (PieceLocation.Item1+1).ToString();
+            char PieceFile = (char)(PieceLocation.Item2+97);
+
+            MoveString += PieceFile;
+            MoveString += PieceRank;
+            MoveString += " to ";
+
+
+            Tuple<int, int> MoveLocation = GetLocation(move.Item2);
+            string MoveRank = (MoveLocation.Item1 + 1).ToString();
+            char MoveFile = (char)(MoveLocation.Item2 + 97);
+
+            MoveString += MoveFile;
+            MoveString += MoveRank;
+
+
+            return MoveString;
+
+        }
+
+
         // Prints the current possible moves to the console
-        // TODO
         public void PrintCurrentMoves()
         {
-            Console.WriteLine("Printing current moves");
+            Console.WriteLine("Current Moves:");
             foreach (var move in MoveGenerator.GetMoves(CurrentBoard))
             {
-                Console.WriteLine($"{move}");
+                Console.WriteLine($"{FormatMove(move)}");
             }
         }
     }

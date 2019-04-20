@@ -137,12 +137,27 @@ namespace AlphaChess
             return false;
         }
 
+        // TODO
+        public bool IsMoveValid(string move)
+        {
+            return false;
+        }
+
         // Takes player input for their move, and updates Game object with the
         // corresponding child board.
         // TODO
         private void MakePlayerMove()
         {
-            Console.WriteLine("Making the Player's move");
+            string Move;
+
+            do
+            {
+                Console.WriteLine("Making the Player's move");
+                Move = Console.ReadLine();
+            }
+            while (!IsMoveValid(Move));
+
+
         }
 
         // Chooses best move for the Computer AI opponent, makes its move and

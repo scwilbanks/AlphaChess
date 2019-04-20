@@ -15,7 +15,7 @@ namespace AlphaChess.Moves
     /// </summary>
 
 
-    static class MoveGenerator
+    static partial class MoveGenerator
     {
 
         // Returns a List of tuples representing the set of moves to the North
@@ -395,35 +395,6 @@ namespace AlphaChess.Moves
         }
 
 
-        // Returns an array of Tuples representing all possible moves for the 
-        // White King from the current board position
-        public static Tuple<ulong, ulong>[] GetWhiteKingMoves(Board board)
-        {
-            ulong Piece = board.WhiteKing;
-
-            List<Tuple<ulong, ulong>> WhiteKingMoves = new List<Tuple<ulong, ulong>>();
-
-            WhiteKingMoves.Concat(GetNorth(board, Piece, 1));
-
-            WhiteKingMoves.Concat(GetNorthEast(board, Piece, 1));
-
-            WhiteKingMoves.Concat(GetEast(board, Piece, 1));
-
-            WhiteKingMoves.Concat(GetSouthEast(board, Piece, 1));
-
-            WhiteKingMoves.Concat(GetSouth(board, Piece, 1));
-
-            WhiteKingMoves.Concat(GetSouthWest(board, Piece, 1));
-
-            WhiteKingMoves.Concat(GetWest(board, Piece, 1));
-
-            WhiteKingMoves.Concat(GetNorthWest(board, Piece, 1));
-
-            return WhiteKingMoves.ToArray();
-
-        }
-
-
         // Splits a ulong representing multiple pieces into an array of ulongs
         public static ulong[] ParsePieces(ulong Pieces)
         {
@@ -445,55 +416,19 @@ namespace AlphaChess.Moves
         }
 
 
-        // Returns an array of Tuples representing all possible moves for the 
-        // White Pawns from the current board position
-        public static Tuple<ulong, ulong>[] GetWhitePawnsMoves(Board board)
-        {
-            ulong[] Pieces = ParsePieces(board.WhitePawns);
-
-            List<Tuple<ulong, ulong>> WhitePawnsMoves = new List<Tuple<ulong, ulong>>();
-
-            foreach (ulong Piece in Pieces)
-            {
-                foreach (Tuple<ulong, ulong> Move in GetNorth(board, Piece, 1))
-                {
-                    WhitePawnsMoves.Add(Move);
-                }
-            }
-
-            return WhitePawnsMoves.ToArray();
-        }
-
         // Returns an array of Tuples representing all possible moves for all 
         // pieces from the current board position
         public static Tuple<ulong, ulong>[] GetMoves(Board board)
         {
 
             List<Tuple<ulong, ulong>> MovesList = new List<Tuple<ulong, ulong>>();
-            ulong EligibleSquares;
 
-
-            if (board.TurnIsWhite)
-            {
-                EligibleSquares = ~board.WhitePieces;
-                MovesList.Concat(GetWhiteKingMoves(board));
-
-                foreach (var Move in GetWhitePawnsMoves(board))
-                {
-                    MovesList.Add(Move);
-                }
-
-                // build rest of white movelist
-            }
-            else if (!board.TurnIsWhite)
-            {
-                EligibleSquares = ~board.BlackPieces;
-                // Build black movelist
-            }
-            else
-            {
-                throw new Exception();
-            }
+            MovesList.AddRange(GetKingMoves(board));
+            MovesList.AddRange(GetQueenMoves(board));
+            MovesList.AddRange(GetRooksMoves(board));
+            MovesList.AddRange(GetBishopsMoves(board));
+            MovesList.AddRange(GetKnightsMoves(board));
+            MovesList.AddRange(GetPawnsMoves(board));
 
 
             return MovesList.ToArray();

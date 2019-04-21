@@ -46,7 +46,7 @@ namespace AlphaChess.Moves
                     else
                     {
 
-                        MoveList.Add(Tuple.Create(Current, Candidate));
+                        MoveList.Add(Tuple.Create(Piece, Candidate));
                         Current = Candidate;
                     }
                 }
@@ -96,7 +96,7 @@ namespace AlphaChess.Moves
                     else
                     {
 
-                        MoveList.Add(Tuple.Create(Current, Candidate));
+                        MoveList.Add(Tuple.Create(Piece, Candidate));
                         Current = Candidate;
                     }
                 }
@@ -145,7 +145,7 @@ namespace AlphaChess.Moves
                     else
                     {
 
-                        MoveList.Add(Tuple.Create(Current, Candidate));
+                        MoveList.Add(Tuple.Create(Piece, Candidate));
                         Current = Candidate;
                     }
                 }
@@ -194,7 +194,7 @@ namespace AlphaChess.Moves
                     else
                     {
 
-                        MoveList.Add(Tuple.Create(Current, Candidate));
+                        MoveList.Add(Tuple.Create(Piece, Candidate));
                         Current = Candidate;
                     }
                 }
@@ -233,7 +233,7 @@ namespace AlphaChess.Moves
                     else
                     {
 
-                        MoveList.Add(Tuple.Create(Current, Candidate));
+                        MoveList.Add(Tuple.Create(Piece, Candidate));
                         Current = Candidate;
                     }
                 }
@@ -283,7 +283,7 @@ namespace AlphaChess.Moves
                     else
                     {
 
-                        MoveList.Add(Tuple.Create(Current, Candidate));
+                        MoveList.Add(Tuple.Create(Piece, Candidate));
                         Current = Candidate;
                     }
                 }
@@ -334,7 +334,7 @@ namespace AlphaChess.Moves
                     else
                     {
 
-                        MoveList.Add(Tuple.Create(Current, Candidate));
+                        MoveList.Add(Tuple.Create(Piece, Candidate));
                         Current = Candidate;
                     }
                 }
@@ -384,7 +384,7 @@ namespace AlphaChess.Moves
                     else
                     {
 
-                        MoveList.Add(Tuple.Create(Current, Candidate));
+                        MoveList.Add(Tuple.Create(Piece, Candidate));
                         Current = Candidate;
                     }
                 }

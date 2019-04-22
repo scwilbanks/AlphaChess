@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace AlphaChess
 {
-    public class Game
+    public partial class Game
     {
 
         /// <summary>
@@ -130,22 +130,31 @@ namespace AlphaChess
         }
 
         // Returns whether or not the game should end based on the current 
-        // board state
+        // board state.
         // TODO
         public bool IsGameOver()
         {
             return false;
         }
 
-        // TODO
-        public bool IsMoveValid(string move)
+        // Returns a Boolean representing if the move inputted is valid.
+        public bool IsMoveValid(string Move)
         {
-            return false;
+            bool IsValid = false;
+
+            foreach (Board Child in CurrentBoard.Children)
+            {
+                if (Child.Move == Move)
+                {
+                    IsValid = true;
+                }
+            }
+
+            return IsValid;
         }
 
         // Takes player input for their move, and updates Game object with the
         // corresponding child board.
-        // TODO
         private void MakePlayerMove()
         {
             string Move;
@@ -158,26 +167,49 @@ namespace AlphaChess
             while (!IsMoveValid(Move));
 
 
+            foreach (Board Child in CurrentBoard.Children)
+            {
+                if (Child.Move == Move)
+                {
+                    CurrentBoard = Child;
+                    CurrentBoard.Parent = null;
+                    break;
+                }
+            }
+
+
         }
 
         // Chooses best move for the Computer AI opponent, makes its move and
         // updates the Game object with the correspond child board.
-        // TODO
         private void MakeOpponentMove()
         {
-            Console.WriteLine("Making the Opponent's move");
+            string Move;
+
+            do
+            {
+                Console.WriteLine("Making the Opponent's move");
+                Move = Console.ReadLine();
+            }
+            while (!IsMoveValid(Move));
+
+
+            foreach (Board Child in CurrentBoard.Children)
+            {
+                if (Child.Move == Move)
+                {
+                    CurrentBoard = Child;
+                    CurrentBoard.Parent = null;
+                }
+            };
         }
 
-        // Initiates the Monte Carlo Tree Search, develops the tree
-        // TODO
-        private void MCTS()
-        {
-            Console.WriteLine("Conducting MCTS");
-        }
+
 
         // Executes a turn of the game
         private void ExecuteTurn()
         {
+
 
             if (PlayerColorIsWhite == CurrentBoard.TurnIsWhite)
             {
@@ -190,8 +222,7 @@ namespace AlphaChess
 
 
             Console.WriteLine();
-            Console.ReadKey();
-            CurrentBoard.TurnIsWhite = !CurrentBoard.TurnIsWhite;
+            // CurrentBoard.TurnIsWhite = !CurrentBoard.TurnIsWhite;
         }
 
         // Executes the player's turn by displaying information about the board
@@ -204,7 +235,7 @@ namespace AlphaChess
             printer.PrintCurrentBoard();
             printer.PrintCurrentMoves();
             MakePlayerMove();
-            return;
+
         }
 
         // Executes the Computer AI opponent's turn by displaying information
@@ -216,7 +247,8 @@ namespace AlphaChess
             Printer printer = new Printer(CurrentBoard);
             printer.PrintCurrentBoard();
             printer.PrintCurrentMoves();
-            return;
+            MakeOpponentMove();
+
         }
 
     }

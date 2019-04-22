@@ -160,7 +160,7 @@ namespace AlphaChess.Moves
               + (ulong)Math.Pow(2, 63);
 
             // If on Ranks 2-8, and Files a-f
-            if ((Piece <= Math.Pow(2, 7)) && ((Piece & GAndHFiles) == 0))
+            if ((Piece >= Math.Pow(2, 8)) && ((Piece & GAndHFiles) == 0))
             {
                 Candidate = Piece >> 6;
 
@@ -198,7 +198,7 @@ namespace AlphaChess.Moves
               + (ulong)Math.Pow(2, 63);
 
             // If on Ranks 3-8, and Files a-g
-            if ((Piece <= Math.Pow(2, 15)) && ((Piece & HFile) == 0))
+            if ((Piece >= Math.Pow(2, 16)) && ((Piece & HFile) == 0))
             {
                 Candidate = Piece >> 15
 ;
@@ -238,7 +238,7 @@ namespace AlphaChess.Moves
               + (ulong)Math.Pow(2, 56);
 
             // If on Ranks 3-8, and Files b-h
-            if ((Piece <= Math.Pow(2, 15)) && ((Piece & AFile) == 0))
+            if ((Piece >= Math.Pow(2, 16)) && ((Piece & AFile) == 0))
             {
                 Candidate = Piece >> 17
 ;
@@ -286,7 +286,7 @@ namespace AlphaChess.Moves
               + (ulong)Math.Pow(2, 57);
 
             // If on Ranks 2-8, and Files b-h
-            if ((Piece <= Math.Pow(2, 7)) && ((Piece & AAndBFiles) == 0))
+            if ((Piece >= Math.Pow(2, 8)) && ((Piece & AAndBFiles) == 0))
             {
                 Candidate = Piece >> 10
 ;

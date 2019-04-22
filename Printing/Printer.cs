@@ -37,7 +37,7 @@ namespace AlphaChess.Printing
 
 
         // Returns a tuple represening the zero-based rank and file of a piece
-        public Tuple<int, int> GetLocation(ulong Piece)
+        public static Tuple<int, int> GetLocation(ulong Piece)
         {
 
             int Rank = 0;
@@ -176,9 +176,31 @@ namespace AlphaChess.Printing
 
         }
 
+        public static string FormatMoveForBoard(Tuple<ulong, ulong> Move)
+        {
+            string MoveString = "";
+
+            Tuple<int, int> PieceLocation = GetLocation(Move.Item1);
+            string PieceRank = (PieceLocation.Item1 + 1).ToString();
+            char PieceFile = (char)(PieceLocation.Item2 + 97);
+
+            MoveString += PieceFile;
+            MoveString += PieceRank;
+
+
+            Tuple<int, int> MoveLocation = GetLocation(Move.Item2);
+            string MoveRank = (MoveLocation.Item1 + 1).ToString();
+            char MoveFile = (char)(MoveLocation.Item2 + 97);
+
+            MoveString += MoveFile;
+            MoveString += MoveRank;
+
+            return MoveString;
+        }
+
 
         // Formats the move into a string, ex. "Knight b1 to a3"
-        public string FormatMove(Tuple<ulong, ulong> move)
+        public string FormatMoveForPrinting(Tuple<ulong, ulong> move)
         {
             string MoveString = "";
 
@@ -240,7 +262,7 @@ namespace AlphaChess.Printing
             Console.WriteLine("Current Moves:");
             foreach (var move in MoveGenerator.GetMoves(CurrentBoard))
             {
-                Console.WriteLine($"{FormatMove(move)}");
+                Console.WriteLine($"{FormatMoveForPrinting(move)}");
             }
         }
     }

@@ -15,8 +15,17 @@ namespace AlphaChess
     /// </summary>
 
 
-    static class MCTS
+    public partial class Game
     {
-        // To be implemented
+        // Initiates the Monte Carlo Tree Search, develops the tree
+        // TODO
+        public void MCTS()
+        {
+            Console.WriteLine("Conducting MCTS");
+            if (CurrentBoard.Children == null)
+            {
+                CurrentBoard.InitializeChildren();
+            }
+        }
     }
 }

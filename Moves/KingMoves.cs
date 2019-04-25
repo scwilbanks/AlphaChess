@@ -15,14 +15,17 @@ namespace AlphaChess.Moves
         {
 
             ulong Piece;
+            ulong EligibleSquares;
 
             if (board.TurnIsWhite)
             {
                 Piece = board.WhiteKing;
+                EligibleSquares = board.WhiteEligibleSquares;
             }
             else if (!board.TurnIsWhite)
             {
                 Piece = board.BlackKing;
+                EligibleSquares = board.BlackEligibleSquares;
             }
             else
             {
@@ -31,14 +34,14 @@ namespace AlphaChess.Moves
 
             List<Tuple<ulong, ulong>> WhiteKingMoves = new List<Tuple<ulong, ulong>>();
 
-            WhiteKingMoves.AddRange(GetNorth(board, Piece, 1));
-            WhiteKingMoves.AddRange(GetNorthEast(board, Piece, 1));
-            WhiteKingMoves.AddRange(GetEast(board, Piece, 1));
-            WhiteKingMoves.AddRange(GetSouthEast(board, Piece, 1));
-            WhiteKingMoves.AddRange(GetSouth(board, Piece, 1));
-            WhiteKingMoves.AddRange(GetSouthWest(board, Piece, 1));
-            WhiteKingMoves.AddRange(GetWest(board, Piece, 1));
-            WhiteKingMoves.AddRange(GetNorthWest(board, Piece, 1));
+            WhiteKingMoves.AddRange(GetNorth(board, EligibleSquares, Piece, 1));
+            WhiteKingMoves.AddRange(GetNorthEast(board, EligibleSquares, Piece, 1));
+            WhiteKingMoves.AddRange(GetEast(board, EligibleSquares, Piece, 1));
+            WhiteKingMoves.AddRange(GetSouthEast(board, EligibleSquares, Piece, 1));
+            WhiteKingMoves.AddRange(GetSouth(board, EligibleSquares, Piece, 1));
+            WhiteKingMoves.AddRange(GetSouthWest(board, EligibleSquares, Piece, 1));
+            WhiteKingMoves.AddRange(GetWest(board, EligibleSquares, Piece, 1));
+            WhiteKingMoves.AddRange(GetNorthWest(board, EligibleSquares, Piece, 1));
 
             return WhiteKingMoves;
 

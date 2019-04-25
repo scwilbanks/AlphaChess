@@ -28,6 +28,8 @@ namespace AlphaChess
         public Board Parent { get; set; }
         public Board[] Children { get; set; }
         public Tuple<ulong, ulong> Move { get; set; }
+        Tuple<ulong, ulong>[] WhiteMoves { get; set; }
+        Tuple<ulong, ulong>[] BlackMoves { get; set; }
 
         //White Pieces
         public ulong WhiteKing { get; set; }
@@ -37,6 +39,7 @@ namespace AlphaChess
         public ulong WhiteKnights { get; set; }
         public ulong WhitePawns { get; set; }
         public ulong WhitePieces { get; set; }
+        public ulong WhiteAttacks { get; set; }
 
         // Black Pieces
         public ulong BlackKing { get; set; }
@@ -46,21 +49,24 @@ namespace AlphaChess
         public ulong BlackKnights { get; set; }
         public ulong BlackPawns { get; set; }
         public ulong BlackPieces { get; set; }
+        public ulong BlackAttacks { get; set; }
 
         // Various Board Data
-        public ulong EligibleSquares { get; set; }
+        public ulong WhiteEligibleSquares { get; set; }
+        public ulong BlackEligibleSquares { get; set; }
+
         public bool TurnIsWhite { get; set; }
         public bool CanWhiteCastle { get; set; }
         public bool CanBlackCastle { get; set; }
-        public bool IsWhiteInCheck { get; set; }
-        public bool IsBlackInCheck { get; set; }
-        public bool IsWhiteInCheckMate { get; set; }
-        public bool IsBlackInCheckMate { get; set; }
+        public bool WhiteInCheck { get; set; }
+        public bool BlackInCheck { get; set; }
+        public bool WhiteInCheckMate { get; set; }
+        public bool BlackInCheckMate { get; set; }
 
         // MCTS Data
         public int VisitNumber { get; set; }
         public int Value { get; set; }
-        public float UCT { get; set; }
+        public double UCT { get; set; }
         
 
         // Constructors
@@ -146,16 +152,69 @@ namespace AlphaChess
         }
 
 
+        private ulong GetWhiteAttacks()
+        {
+            ulong Attacks = 0;
+            
+            if (this.TurnIsWhite)
+            {
+                foreach (Tuple<ulong, ulong> Move in WhiteMoves)
+                {
+                    Attacks |= Move.Item2;
+                }
+            }
+
+            return Attacks;
+
+        }
+
+
+        private ulong GetBlackAttacks()
+        {
+            ulong Attacks = 0;
+
+            if (!this.TurnIsWhite)
+            {
+                foreach (Tuple<ulong, ulong> Move in BlackMoves)
+                {
+                    Attacks |= Move.Item2;
+                }
+            }
+
+            return Attacks;
+
+        }
+
+
         // Sets values for initial board position
         private void SetStartingBoardData()
         {
             Parent = null;
-            EligibleSquares = TurnIsWhite ? ~BlackPieces : ~WhitePieces;
+
+
+            
+            WhiteEligibleSquares = ~WhitePieces;
+            BlackEligibleSquares = ~BlackPieces;
+
+
+            BlackMoves = MoveGenerator.GetMoves(this);
             TurnIsWhite = true;
+            WhiteMoves = MoveGenerator.GetMoves(this);
+            
+
+            BlackAttacks = GetBlackAttacks();
+            WhiteAttacks = GetWhiteAttacks();
+
+            this.WhiteInCheck = IsWhiteInCheck();
+            this.BlackInCheck = IsBlackInCheck();
+            this.WhiteInCheckMate = IsWhiteInCheckMate();
+            this.BlackInCheckMate = IsBlackInCheckMate();
+
+
             CanWhiteCastle = true;
             CanBlackCastle = true;
-            IsWhiteInCheck = false;
-            IsBlackInCheck = false;
+            WhiteInCheck = false;
+            BlackInCheck = false;
             VisitNumber = 0;
             Value = 0;
         }
@@ -182,6 +241,7 @@ namespace AlphaChess
             this.Parent = Parent;
 
             this.Move = Move;
+
 
 
             this.WhiteKing = (Parent.WhiteKing & Move.Item1) > 0 ? Parent.WhiteKing ^ Move.Item1 | Move.Item2 : Parent.WhiteKing;
@@ -211,10 +271,25 @@ namespace AlphaChess
             this.BlackPieces |= this.BlackKnights;
             this.BlackPieces |= this.BlackPawns;
 
-            this.EligibleSquares = ~BlackPieces;
+            WhiteEligibleSquares = ~WhitePieces;
+            BlackEligibleSquares = ~BlackPieces;
+
+            
+            WhiteMoves = MoveGenerator.GetMoves(this);
             this.TurnIsWhite = false;
+            BlackMoves = MoveGenerator.GetMoves(this);
+
+            this.BlackAttacks = GetBlackAttacks();
+            this.WhiteAttacks = GetWhiteAttacks();
+
+            this.WhiteInCheck = IsWhiteInCheck();
+            this.BlackInCheck = IsBlackInCheck();
+            this.WhiteInCheckMate = IsWhiteInCheckMate();
+            this.BlackInCheckMate = IsBlackInCheckMate();
+
             this.CanWhiteCastle = true;
             this.CanBlackCastle = true;
+
             this.VisitNumber = 0;
             this.Value = this.CalcValue();
 
@@ -227,6 +302,7 @@ namespace AlphaChess
             this.Parent = Parent;
 
             this.Move = Move;
+
 
             this.WhiteKing = (Parent.WhiteKing & Move.Item2) > 0 ? Parent.WhiteKing ^ Move.Item2 : Parent.WhiteKing;
             this.WhiteQueen = (Parent.WhiteQueen & Move.Item2) > 0 ? Parent.WhiteQueen ^ Move.Item2 : Parent.WhiteQueen;
@@ -255,12 +331,27 @@ namespace AlphaChess
             this.BlackPieces |= this.BlackKnights;
             this.BlackPieces |= this.BlackPawns;
 
-            this.EligibleSquares = ~WhitePieces;
+            WhiteEligibleSquares = ~WhitePieces;
+            BlackEligibleSquares = ~BlackPieces;
+
+            
+            
+
+
+            BlackMoves = MoveGenerator.GetMoves(this);
             this.TurnIsWhite = true;
+            WhiteMoves = MoveGenerator.GetMoves(this);
+
+            this.BlackAttacks = GetBlackAttacks();
+            this.WhiteAttacks = GetWhiteAttacks();
+
+            this.WhiteInCheck = IsWhiteInCheck();
+            this.BlackInCheck = IsBlackInCheck();
+            this.WhiteInCheckMate = IsWhiteInCheckMate();
+            this.BlackInCheckMate = IsBlackInCheckMate();
+
             this.CanWhiteCastle = true;
             this.CanBlackCastle = true;
-            this.IsWhiteInCheck = false;
-            this.IsBlackInCheck = false;
             this.VisitNumber = 0;
             this.Value = this.CalcValue();
 
@@ -271,17 +362,80 @@ namespace AlphaChess
         // Initializes child boards and sets the Children Property
         public void InitializeChildren()
         {
-            Tuple<ulong, ulong>[] MovesArray = MoveGenerator.GetMoves(this);
-            List<Board> ChildrenList = new List<Board>();
 
-            foreach (Tuple<ulong, ulong> move in MovesArray)
+            List<Board> ChildrenList = new List<Board>();
+            Tuple<ulong, ulong>[] Moves = this.TurnIsWhite ? this.WhiteMoves : this.BlackMoves;
+
+            foreach (Tuple<ulong, ulong> move in Moves)
             {
                 Board ChildBoard = new Board(this, move);
-                ChildrenList.Add(ChildBoard);
+                if (this.TurnIsWhite)
+                {
+                    if (!ChildBoard.WhiteInCheck)
+                    {
+                        ChildrenList.Add(ChildBoard);
+                    }
+                }  
+                else if (!this.TurnIsWhite)
+                {
+                    if (!ChildBoard.BlackInCheck)
+                    {
+                        ChildrenList.Add(ChildBoard);
+                    }
+                }
+                    
             }
 
-            Children = ChildrenList.ToArray();
+
+
+            this.Children = ChildrenList.ToArray();
+
+
         }
+
+
+
+        public bool IsWhiteInCheck()
+        {
+            return ((this.WhiteKing & this.BlackAttacks) > 0);
+
+
+        }
+        
+
+
+        public bool IsBlackInCheck()
+        {
+            return ((this.BlackKing & this.WhiteAttacks) > 0);
+
+        }
+
+
+        public bool IsWhiteInCheckMate()
+        {
+            bool InCheckMate = false;
+
+            if (this.TurnIsWhite && this.WhiteInCheck && (this.Children.Length == 0))
+            {
+                InCheckMate = true;
+            }
+
+            return InCheckMate;
+        }
+
+        
+        public bool IsBlackInCheckMate()
+        {
+            bool InCheckMate = false;
+
+            if (!this.TurnIsWhite && this.BlackInCheck && (this.Children.Length == 0))
+            {
+                InCheckMate = true;
+            }
+
+            return InCheckMate;
+        }
+
 
         public int CalcBitboardValue(ulong Piece, int PieceValue)
         {
@@ -324,6 +478,19 @@ namespace AlphaChess
             }
 
             return Value;
+        }
+
+        // TODO
+        public void UpdateUCT()
+        {
+            double UCT = 0;
+
+            if (this.Parent != null)
+            {
+                //
+            }
+
+
         }
     }
 }

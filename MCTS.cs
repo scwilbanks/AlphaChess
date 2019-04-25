@@ -33,18 +33,51 @@ namespace AlphaChess
         public Board MCTSDown(Board CurrentBoard)
         {
 
-            if (CurrentBoard.Children == null)
+            
+
+            
+
+            while (CurrentBoard.Children != null)
             {
-                CurrentBoard.InitializeChildren();
+                Board HighestUCTBoard = null;
+
+                foreach (Board Child in CurrentBoard.Children)
+                {
+                    if (HighestUCTBoard == null || Child.UCT > HighestUCTBoard.UCT)
+                    {
+                        HighestUCTBoard = Child;
+                    }
+                }
+
+                CurrentBoard = HighestUCTBoard;
+
             }
 
-            return CurrentBoard.Children[0];
+
+            return CurrentBoard;
 
         }
 
         // TODO
+        // TODO: remove child if still in check
         public void MCTSUp(Board LeafBoard)
         {
+
+            LeafBoard.InitializeChildren();
+
+            Board CurrentBoard = LeafBoard;
+
+            while (CurrentBoard != null)
+            {
+                CurrentBoard.VisitNumber++;
+
+                CurrentBoard.UpdateUCT();
+
+                CurrentBoard = CurrentBoard.Parent;
+            }
+            
+
+            
 
         }
 

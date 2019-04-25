@@ -13,14 +13,17 @@ namespace AlphaChess.Moves
         {
 
             ulong[] Pieces;
+            ulong EligibleSquares;
 
             if (board.TurnIsWhite)
             {
                 Pieces = ParsePieces(board.WhiteBishops);
+                EligibleSquares = board.WhiteEligibleSquares;
             }
             else if (!board.TurnIsWhite)
             {
                 Pieces = ParsePieces(board.BlackBishops);
+                EligibleSquares = board.BlackEligibleSquares;
             }
             else
             {
@@ -31,10 +34,10 @@ namespace AlphaChess.Moves
 
             foreach (ulong Piece in Pieces)
             {
-                BishopsMoves.AddRange(GetNorthEast(board, Piece, 7));
-                BishopsMoves.AddRange(GetSouthEast(board, Piece, 7));
-                BishopsMoves.AddRange(GetSouthWest(board, Piece, 7));
-                BishopsMoves.AddRange(GetNorthWest(board, Piece, 7));
+                BishopsMoves.AddRange(GetNorthEast(board, EligibleSquares, Piece, 7));
+                BishopsMoves.AddRange(GetSouthEast(board, EligibleSquares, Piece, 7));
+                BishopsMoves.AddRange(GetSouthWest(board, EligibleSquares, Piece, 7));
+                BishopsMoves.AddRange(GetNorthWest(board, EligibleSquares, Piece, 7));
             }
 
             return BishopsMoves;

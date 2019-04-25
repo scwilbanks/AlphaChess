@@ -13,14 +13,17 @@ namespace AlphaChess.Moves
         public static List<Tuple<ulong, ulong>> GetKnightsMoves(Board board)
         {
             ulong[] Pieces;
+            ulong EligibleSquares;
 
             if (board.TurnIsWhite)
             {
                 Pieces = ParsePieces(board.WhiteKnights);
+                EligibleSquares = board.WhiteEligibleSquares;
             }
             else if (!board.TurnIsWhite)
             {
                 Pieces = ParsePieces(board.BlackKnights);
+                EligibleSquares = board.BlackEligibleSquares;
             }
             else
             {
@@ -32,14 +35,14 @@ namespace AlphaChess.Moves
 
             foreach (ulong Piece in Pieces)
             {
-                KnightsMoves.AddRange(GetKnightNNE(board, Piece));
-                KnightsMoves.AddRange(GetKnightENE(board, Piece));
-                KnightsMoves.AddRange(GetKnightESE(board, Piece));
-                KnightsMoves.AddRange(GetKnightSSE(board, Piece));
-                KnightsMoves.AddRange(GetKnightSSW(board, Piece));
-                KnightsMoves.AddRange(GetKnightWSW(board, Piece));
-                KnightsMoves.AddRange(GetKnightWNW(board, Piece));
-                KnightsMoves.AddRange(GetKnightNNW(board, Piece));
+                KnightsMoves.AddRange(GetKnightNNE(board, EligibleSquares, Piece));
+                KnightsMoves.AddRange(GetKnightENE(board, EligibleSquares, Piece));
+                KnightsMoves.AddRange(GetKnightESE(board, EligibleSquares, Piece));
+                KnightsMoves.AddRange(GetKnightSSE(board, EligibleSquares, Piece));
+                KnightsMoves.AddRange(GetKnightSSW(board, EligibleSquares, Piece));
+                KnightsMoves.AddRange(GetKnightWSW(board, EligibleSquares, Piece));
+                KnightsMoves.AddRange(GetKnightWNW(board, EligibleSquares, Piece));
+                KnightsMoves.AddRange(GetKnightNNW(board, EligibleSquares, Piece));
             
             }
 
@@ -50,7 +53,7 @@ namespace AlphaChess.Moves
 
         // Returns a List of Tuples representing zero or one possible moves by 
         // the Knight to the square up two and right one.
-        public static List<Tuple<ulong, ulong>> GetKnightNNE(Board board, ulong Piece)
+        public static List<Tuple<ulong, ulong>> GetKnightNNE(Board board, ulong EligibleSquares, ulong Piece)
         {
 
             List<Tuple<ulong, ulong>> Result = new List<Tuple<ulong, ulong>>();
@@ -72,7 +75,7 @@ namespace AlphaChess.Moves
             {
                 Candidate = Piece << 17;
 
-                if ((Candidate & board.EligibleSquares) > 0)
+                if ((Candidate & EligibleSquares) > 0)
                 {
                     Result.Add(Tuple.Create(Piece, Candidate));
                 }
@@ -88,7 +91,7 @@ namespace AlphaChess.Moves
 
         // Returns a List of Tuples representing zero or one possible moves by 
         // the Knight to the square up one and right two.
-        public static List<Tuple<ulong, ulong>> GetKnightENE(Board board, ulong Piece)
+        public static List<Tuple<ulong, ulong>> GetKnightENE(Board board, ulong EligibleSquares, ulong Piece)
         {
 
             List<Tuple<ulong, ulong>> Result = new List<Tuple<ulong, ulong>>();
@@ -118,7 +121,7 @@ namespace AlphaChess.Moves
             {
                 Candidate = Piece << 10;
 
-                if ((Candidate & board.EligibleSquares) > 0)
+                if ((Candidate & EligibleSquares) > 0)
                 {
                     Result.Add(Tuple.Create(Piece, Candidate));
                 }
@@ -134,7 +137,7 @@ namespace AlphaChess.Moves
 
         // Returns a List of Tuples representing zero or one possible moves by 
         // the Knight to the square down one and right two.
-        public static List<Tuple<ulong, ulong>> GetKnightESE(Board board, ulong Piece)
+        public static List<Tuple<ulong, ulong>> GetKnightESE(Board board, ulong EligibleSquares, ulong Piece)
         {
 
             List<Tuple<ulong, ulong>> Result = new List<Tuple<ulong, ulong>>();
@@ -164,7 +167,7 @@ namespace AlphaChess.Moves
             {
                 Candidate = Piece >> 6;
 
-                if ((Candidate & board.EligibleSquares) > 0)
+                if ((Candidate & EligibleSquares) > 0)
                 {
                     Result.Add(Tuple.Create(Piece, Candidate));
                 }
@@ -180,7 +183,7 @@ namespace AlphaChess.Moves
 
         // Returns a List of Tuples representing zero or one possible moves by 
         // the Knight to the square down two and right one.
-        public static List<Tuple<ulong, ulong>> GetKnightSSE(Board board, ulong Piece)
+        public static List<Tuple<ulong, ulong>> GetKnightSSE(Board board, ulong EligibleSquares, ulong Piece)
         {
 
             List<Tuple<ulong, ulong>> Result = new List<Tuple<ulong, ulong>>();
@@ -203,7 +206,7 @@ namespace AlphaChess.Moves
                 Candidate = Piece >> 15
 ;
 
-                if ((Candidate & board.EligibleSquares) > 0)
+                if ((Candidate & EligibleSquares) > 0)
                 {
                     Result.Add(Tuple.Create(Piece, Candidate));
                 }
@@ -219,7 +222,7 @@ namespace AlphaChess.Moves
 
         // Returns a List of Tuples representing zero or one possible moves by 
         // the Knight to the square down two and left one.
-        public static List<Tuple<ulong, ulong>> GetKnightSSW(Board board, ulong Piece)
+        public static List<Tuple<ulong, ulong>> GetKnightSSW(Board board, ulong EligibleSquares, ulong Piece)
         {
 
             List<Tuple<ulong, ulong>> Result = new List<Tuple<ulong, ulong>>();
@@ -243,7 +246,7 @@ namespace AlphaChess.Moves
                 Candidate = Piece >> 17
 ;
 
-                if ((Candidate & board.EligibleSquares) > 0)
+                if ((Candidate & EligibleSquares) > 0)
                 {
                     Result.Add(Tuple.Create(Piece, Candidate));
                 }
@@ -259,7 +262,7 @@ namespace AlphaChess.Moves
 
         // Returns a List of Tuples representing zero or one possible moves by 
         // the Knight to the square down two and left one.
-        public static List<Tuple<ulong, ulong>> GetKnightWSW(Board board, ulong Piece)
+        public static List<Tuple<ulong, ulong>> GetKnightWSW(Board board, ulong EligibleSquares, ulong Piece)
         {
 
             List<Tuple<ulong, ulong>> Result = new List<Tuple<ulong, ulong>>();
@@ -291,7 +294,7 @@ namespace AlphaChess.Moves
                 Candidate = Piece >> 10
 ;
 
-                if ((Candidate & board.EligibleSquares) > 0)
+                if ((Candidate & EligibleSquares) > 0)
                 {
                     Result.Add(Tuple.Create(Piece, Candidate));
                 }
@@ -307,7 +310,7 @@ namespace AlphaChess.Moves
 
         // Returns a List of Tuples representing zero or one possible moves by 
         // the Knight to the square up one and left two.
-        public static List<Tuple<ulong, ulong>> GetKnightWNW(Board board, ulong Piece)
+        public static List<Tuple<ulong, ulong>> GetKnightWNW(Board board, ulong EligibleSquares, ulong Piece)
         {
 
             List<Tuple<ulong, ulong>> Result = new List<Tuple<ulong, ulong>>();
@@ -339,7 +342,7 @@ namespace AlphaChess.Moves
             {
                 Candidate = Piece << 6;
 
-                if ((Candidate & board.EligibleSquares) > 0)
+                if ((Candidate & EligibleSquares) > 0)
                 {
                     Result.Add(Tuple.Create(Piece, Candidate));
                 }
@@ -355,7 +358,7 @@ namespace AlphaChess.Moves
 
         // Returns a List of Tuples representing zero or one possible moves by 
         // the Knight to the square up two and left one.
-        public static List<Tuple<ulong, ulong>> GetKnightNNW(Board board, ulong Piece)
+        public static List<Tuple<ulong, ulong>> GetKnightNNW(Board board, ulong EligibleSquares, ulong Piece)
         {
 
             List<Tuple<ulong, ulong>> Result = new List<Tuple<ulong, ulong>>();
@@ -379,7 +382,7 @@ namespace AlphaChess.Moves
             {
                 Candidate = Piece << 15;
 
-                if ((Candidate & board.EligibleSquares) > 0)
+                if ((Candidate & EligibleSquares) > 0)
                 {
                     Result.Add(Tuple.Create(Piece, Candidate));
                 }

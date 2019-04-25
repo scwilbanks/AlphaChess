@@ -16,14 +16,17 @@ namespace AlphaChess.Moves
         {
 
             ulong[] Pieces;
+            ulong EligibleSquares;
 
             if (board.TurnIsWhite)
             {
                 Pieces = ParsePieces(board.WhitePawns);
+                EligibleSquares = board.WhiteEligibleSquares;
             }
             else if (!board.TurnIsWhite)
             {
                 Pieces = ParsePieces(board.BlackPawns);
+                EligibleSquares = board.BlackEligibleSquares;
             }
             else
             {

@@ -20,7 +20,7 @@ namespace AlphaChess.Moves
 
         // Returns a List of tuples representing the set of moves to the North
         // for the current piece
-        public static List<Tuple<ulong, ulong>> GetNorth(Board board, ulong Piece, int MaxMoves)
+        public static List<Tuple<ulong, ulong>> GetNorth(Board board, ulong EligibleSquares, ulong Piece, int MaxMoves)
         {
             List<Tuple<ulong, ulong>> MoveList = new List<Tuple<ulong, ulong>>();
 
@@ -39,7 +39,7 @@ namespace AlphaChess.Moves
                     Candidate = Current << 8;
 
                     // If square occupied by player's piece
-                    if ((Candidate & board.EligibleSquares) == 0)
+                    if ((Candidate & EligibleSquares) == 0)
                     {
                         break;
                     }
@@ -59,7 +59,7 @@ namespace AlphaChess.Moves
 
         // Returns a List of tuples representing the set of moves to the NorthEast
         // for the current piece
-        public static List<Tuple<ulong, ulong>> GetNorthEast(Board board, ulong Piece, int MaxMoves)
+        public static List<Tuple<ulong, ulong>> GetNorthEast(Board board, ulong EligibleSquares, ulong Piece, int MaxMoves)
         {
             List<Tuple<ulong, ulong>> MoveList = new List<Tuple<ulong, ulong>>();
 
@@ -89,7 +89,7 @@ namespace AlphaChess.Moves
                     Candidate = Current << 9;
 
                     // If square occupied by player's piece
-                    if ((Candidate & board.EligibleSquares) == 0)
+                    if ((Candidate & EligibleSquares) == 0)
                     {
                         break;
                     }
@@ -109,7 +109,7 @@ namespace AlphaChess.Moves
 
         // Returns a List of tuples representing the set of moves to the East
         // for the current piece
-        public static List<Tuple<ulong, ulong>> GetEast(Board board, ulong Piece, int MaxMoves)
+        public static List<Tuple<ulong, ulong>> GetEast(Board board, ulong EligibleSquares, ulong Piece, int MaxMoves)
         {
             List<Tuple<ulong, ulong>> MoveList = new List<Tuple<ulong, ulong>>();
 
@@ -138,7 +138,7 @@ namespace AlphaChess.Moves
                     Candidate = Current << 1;
 
                     // If square occupied by player's piece
-                    if ((Candidate & board.EligibleSquares) == 0)
+                    if ((Candidate & EligibleSquares) == 0)
                     {
                         break;
                     }
@@ -157,7 +157,7 @@ namespace AlphaChess.Moves
 
         // Returns a List of tuples representing the set of moves to the SouthEast
         // for the current piece
-        public static List<Tuple<ulong, ulong>> GetSouthEast(Board board, ulong Piece, int MaxMoves)
+        public static List<Tuple<ulong, ulong>> GetSouthEast(Board board, ulong EligibleSquares, ulong Piece, int MaxMoves)
         {
             List<Tuple<ulong, ulong>> MoveList = new List<Tuple<ulong, ulong>>();
 
@@ -187,7 +187,7 @@ namespace AlphaChess.Moves
                     Candidate = Current >> 7;
 
                     // If square occupied by player's piece
-                    if ((Candidate & board.EligibleSquares) == 0)
+                    if ((Candidate & EligibleSquares) == 0)
                     {
                         break;
                     }
@@ -207,7 +207,7 @@ namespace AlphaChess.Moves
 
         // Returns a List of tuples representing the set of moves to the South
         // for the current piece
-        public static List<Tuple<ulong, ulong>> GetSouth(Board board, ulong Piece, int MaxMoves)
+        public static List<Tuple<ulong, ulong>> GetSouth(Board board, ulong EligibleSquares, ulong Piece, int MaxMoves)
         {
             List<Tuple<ulong, ulong>> MoveList = new List<Tuple<ulong, ulong>>();
 
@@ -226,7 +226,7 @@ namespace AlphaChess.Moves
                     Candidate = Current >> 8;
 
                     // If square occupied by player's piece
-                    if ((Candidate & board.EligibleSquares) == 0)
+                    if ((Candidate & EligibleSquares) == 0)
                     {
                         break;
                     }
@@ -246,7 +246,7 @@ namespace AlphaChess.Moves
 
         // Returns a List of tuples representing the set of moves to the SouthWest
         // for the current piece
-        public static List<Tuple<ulong, ulong>> GetSouthWest(Board board, ulong Piece, int MaxMoves)
+        public static List<Tuple<ulong, ulong>> GetSouthWest(Board board, ulong EligibleSquares, ulong Piece, int MaxMoves)
         {
             List<Tuple<ulong, ulong>> MoveList = new List<Tuple<ulong, ulong>>();
 
@@ -276,7 +276,7 @@ namespace AlphaChess.Moves
                     Candidate = Current >> 9;
 
                     // If square occupied by player's piece
-                    if ((Candidate & board.EligibleSquares) == 0)
+                    if ((Candidate & EligibleSquares) == 0)
                     {
                         break;
                     }
@@ -296,7 +296,7 @@ namespace AlphaChess.Moves
 
         // Returns a List of tuples representing the set of moves to the West
         // for the current piece
-        public static List<Tuple<ulong, ulong>> GetWest(Board board, ulong Piece, int MaxMoves)
+        public static List<Tuple<ulong, ulong>> GetWest(Board board, ulong EligibleSquares, ulong Piece, int MaxMoves)
 
 
         {
@@ -327,7 +327,7 @@ namespace AlphaChess.Moves
                     Candidate = Current >> 1;
 
                     // If square occupied by player's piece
-                    if ((Candidate & board.EligibleSquares) == 0)
+                    if ((Candidate & EligibleSquares) == 0)
                     {
                         break;
                     }
@@ -347,7 +347,7 @@ namespace AlphaChess.Moves
 
         // Returns a List of tuples representing the set of moves to the NorthWest
         // for the current piece
-        public static List<Tuple<ulong, ulong>> GetNorthWest(Board board, ulong Piece, int MaxMoves)
+        public static List<Tuple<ulong, ulong>> GetNorthWest(Board board, ulong EligibleSquares, ulong Piece, int MaxMoves)
         {
             List<Tuple<ulong, ulong>> MoveList = new List<Tuple<ulong, ulong>>();
 
@@ -377,7 +377,7 @@ namespace AlphaChess.Moves
                     Candidate = Current << 7;
 
                     // If square occupied by player's piece
-                    if ((Candidate & board.EligibleSquares) == 0)
+                    if ((Candidate & EligibleSquares) == 0)
                     {
                         break;
                     }
@@ -415,6 +415,31 @@ namespace AlphaChess.Moves
             return PiecesList.ToArray();
         }
 
+        // TODO
+        public static bool IsWhiteStillInCheck(Tuple<ulong, ulong> Move, Board board)
+        {
+            bool StillInCheck = true;
+
+            // TODO
+
+            return StillInCheck;
+
+        }
+
+
+
+        // TODO
+        public static bool IsBlackStillInCheck(Tuple<ulong, ulong> Move, Board board)
+        {
+            bool StillInCheck = true;
+
+            // TODO
+
+            return StillInCheck;
+
+        }
+
+
 
         // Returns an array of Tuples representing all possible moves for all 
         // pieces from the current board position
@@ -429,6 +454,7 @@ namespace AlphaChess.Moves
             MovesList.AddRange(GetBishopsMoves(board));
             MovesList.AddRange(GetKnightsMoves(board));
             MovesList.AddRange(GetPawnsMoves(board));
+
 
             return MovesList.ToArray();
         }

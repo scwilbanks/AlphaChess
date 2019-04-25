@@ -134,7 +134,7 @@ namespace AlphaChess
         // TODO
         public bool IsGameOver()
         {
-            return CurrentBoard.IsWhiteInCheckMate || CurrentBoard.IsBlackInCheckMate;
+            return CurrentBoard.WhiteInCheckMate || CurrentBoard.BlackInCheckMate;
         }
 
         // Returns a Boolean representing if the move inputted is valid.

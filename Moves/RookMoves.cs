@@ -15,14 +15,17 @@ namespace AlphaChess.Moves
         {
 
             ulong[] Pieces;
+            ulong EligibleSquares;
 
             if (board.TurnIsWhite)
             {
                 Pieces = ParsePieces(board.WhiteRooks);
+                EligibleSquares = board.WhiteEligibleSquares;
             }
             else if (!board.TurnIsWhite)
             {
                 Pieces = ParsePieces(board.BlackRooks);
+                EligibleSquares = board.BlackEligibleSquares;
             }
             else
             {
@@ -33,10 +36,10 @@ namespace AlphaChess.Moves
 
             foreach (ulong Piece in Pieces)
             {
-                RooksMoves.AddRange(GetNorth(board, Piece, 7));
-                RooksMoves.AddRange(GetEast(board, Piece, 7));
-                RooksMoves.AddRange(GetSouth(board, Piece, 7));
-                RooksMoves.AddRange(GetWest(board, Piece, 7));
+                RooksMoves.AddRange(GetNorth(board, EligibleSquares, Piece, 7));
+                RooksMoves.AddRange(GetEast(board, EligibleSquares, Piece, 7));
+                RooksMoves.AddRange(GetSouth(board, EligibleSquares, Piece, 7));
+                RooksMoves.AddRange(GetWest(board, EligibleSquares, Piece, 7));
             }
 
             return RooksMoves;

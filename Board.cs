@@ -27,7 +27,7 @@ namespace AlphaChess
         // Tree references
         public Board Parent { get; set; }
         public Board[] Children { get; set; }
-        public string Move { get; set; }
+        public Tuple<ulong, ulong> Move { get; set; }
 
         //White Pieces
         public ulong WhiteKing { get; set; }
@@ -50,15 +50,17 @@ namespace AlphaChess
         // Various Board Data
         public ulong EligibleSquares { get; set; }
         public bool TurnIsWhite { get; set; }
-        bool CanWhiteCastle { get; set; }
-        bool CanBlackCastle { get; set; }
-        bool IsWhiteInCheck { get; set; }
-        bool IsBlackInCheck { get; set; }
+        public bool CanWhiteCastle { get; set; }
+        public bool CanBlackCastle { get; set; }
+        public bool IsWhiteInCheck { get; set; }
+        public bool IsBlackInCheck { get; set; }
+        public bool IsWhiteInCheckMate { get; set; }
+        public bool IsBlackInCheckMate { get; set; }
 
         // MCTS Data
-        int VisitNumber { get; set; }
-        int Value { get; set; }
-        float UCT { get; set; }
+        public int VisitNumber { get; set; }
+        public int Value { get; set; }
+        public float UCT { get; set; }
         
 
         // Constructors
@@ -179,7 +181,7 @@ namespace AlphaChess
         {
             this.Parent = Parent;
 
-            this.Move = Printing.Printer.FormatMoveForBoard(Move);
+            this.Move = Move;
 
 
             this.WhiteKing = (Parent.WhiteKing & Move.Item1) > 0 ? Parent.WhiteKing ^ Move.Item1 | Move.Item2 : Parent.WhiteKing;
@@ -213,10 +215,8 @@ namespace AlphaChess
             this.TurnIsWhite = false;
             this.CanWhiteCastle = true;
             this.CanBlackCastle = true;
-            this.IsWhiteInCheck = false;
-            this.IsBlackInCheck = false;
             this.VisitNumber = 0;
-            this.Value = 0;
+            this.Value = this.CalcValue();
 
 
         }
@@ -226,7 +226,7 @@ namespace AlphaChess
         {
             this.Parent = Parent;
 
-            this.Move = Printing.Printer.FormatMoveForBoard(Move);
+            this.Move = Move;
 
             this.WhiteKing = (Parent.WhiteKing & Move.Item2) > 0 ? Parent.WhiteKing ^ Move.Item2 : Parent.WhiteKing;
             this.WhiteQueen = (Parent.WhiteQueen & Move.Item2) > 0 ? Parent.WhiteQueen ^ Move.Item2 : Parent.WhiteQueen;
@@ -262,7 +262,7 @@ namespace AlphaChess
             this.IsWhiteInCheck = false;
             this.IsBlackInCheck = false;
             this.VisitNumber = 0;
-            this.Value = 0;
+            this.Value = this.CalcValue();
 
 
         }
@@ -281,6 +281,49 @@ namespace AlphaChess
             }
 
             Children = ChildrenList.ToArray();
+        }
+
+        public int CalcBitboardValue(ulong Piece, int PieceValue)
+        {
+            int Value = 0;
+            ulong CurrentPiece = Piece;
+
+            while (CurrentPiece > 0)
+            {
+                if (CurrentPiece % 2 == 1)
+                {
+                    Value += PieceValue;
+                }
+                CurrentPiece >>= 1;
+            }
+
+            return Value;
+        }
+
+        public int CalcValue()
+        {
+            int Value = 0;
+
+            // If parent is white's turn, if parent is black, they will swap
+            Value += CalcBitboardValue(this.WhiteQueen, 9);
+            Value += CalcBitboardValue(this.WhiteRooks, 5);
+            Value += CalcBitboardValue(this.WhiteBishops, 3);
+            Value += CalcBitboardValue(this.WhiteKnights, 3);
+            Value += CalcBitboardValue(this.WhitePawns, 1);
+
+            Value -= CalcBitboardValue(this.BlackQueen, 9);
+            Value -= CalcBitboardValue(this.BlackRooks, 5);
+            Value -= CalcBitboardValue(this.BlackBishops, 3);
+            Value -= CalcBitboardValue(this.BlackKnights, 3);
+            Value -= CalcBitboardValue(this.BlackPawns, 1);
+
+            // If parent's turn is black, the values swap
+            if (!this.Parent.TurnIsWhite)
+            {
+                Value = -Value;
+            }
+
+            return Value;
         }
     }
 }

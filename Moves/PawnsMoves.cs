@@ -39,11 +39,11 @@ namespace AlphaChess.Moves
                 {
                     if (Piece >= Math.Pow(2, 8) && Piece <= Math.Pow(2, 15))
                     {
-                        PawnsMoves.AddRange(GetNorth(board, Piece, 2));
+                        PawnsMoves.AddRange(GetPawnNorth(board, Piece, 2));
                     }
                     else if (Piece < Math.Pow(2, 8) || Piece > Math.Pow(2, 15))
                     {
-                        PawnsMoves.AddRange(GetNorth(board, Piece, 1));
+                        PawnsMoves.AddRange(GetPawnNorth(board, Piece, 1));
                     }
                     else
                     {
@@ -58,11 +58,11 @@ namespace AlphaChess.Moves
                 {
                     if (Piece >= Math.Pow(2, 48) && Piece <= Math.Pow(2, 55))
                     {
-                        PawnsMoves.AddRange(GetSouth(board, Piece, 2));
+                        PawnsMoves.AddRange(GetPawnSouth(board, Piece, 2));
                     }
                     else if (Piece < Math.Pow(2, 48) || Piece > Math.Pow(2, 55))
                     {
-                        PawnsMoves.AddRange(GetSouth(board, Piece, 1));
+                        PawnsMoves.AddRange(GetPawnSouth(board, Piece, 1));
                     }
                     else
                     {
@@ -225,6 +225,83 @@ namespace AlphaChess.Moves
             return MoveList;
 
         }
+
+        // Returns a List of tuples representing the set of moves to the North
+        // for the current Pawn
+        public static List<Tuple<ulong, ulong>> GetPawnNorth(Board board, ulong Piece, int MaxMoves)
+        {
+            List<Tuple<ulong, ulong>> MoveList = new List<Tuple<ulong, ulong>>();
+
+            ulong Current = Piece;
+            ulong Candidate;
+
+            for (int i = 1; i <= MaxMoves; i++)
+            {
+                // If on 8th Rank
+                if (Current >= Math.Pow(2, 56))
+                {
+                    break;
+                }
+                else
+                {
+                    Candidate = Current << 8;
+
+                    // If square occupied by any piece
+                    if (((Candidate & board.WhitePieces) > 0) || ((Candidate & board.BlackPieces) > 0))
+                    {
+                        break;
+                    }
+                    else
+                    {
+
+                        MoveList.Add(Tuple.Create(Piece, Candidate));
+                        Current = Candidate;
+                    }
+                }
+            }
+
+            return MoveList;
+
+        }
+
+        // Returns a List of tuples representing the set of moves to the South
+        // for the current Pawn
+        public static List<Tuple<ulong, ulong>> GetPawnSouth(Board board, ulong Piece, int MaxMoves)
+        {
+            List<Tuple<ulong, ulong>> MoveList = new List<Tuple<ulong, ulong>>();
+
+            ulong Current = Piece;
+            ulong Candidate;
+
+            for (int i = 1; i <= MaxMoves; i++)
+            {
+                // If on 1st Rank
+                if (Current <= Math.Pow(2, 7))
+                {
+                    break;
+                }
+                else
+                {
+                    Candidate = Current >> 8;
+
+                    // If square occupied by any piece
+                    if (((Candidate & board.WhitePieces) > 0) || ((Candidate & board.BlackPieces) > 0))
+                    {
+                        break;
+                    }
+                    else
+                    {
+
+                        MoveList.Add(Tuple.Create(Piece, Candidate));
+                        Current = Candidate;
+                    }
+                }
+            }
+
+            return MoveList;
+
+        }
+
 
 
     }

@@ -260,9 +260,11 @@ namespace AlphaChess.Printing
         public void PrintCurrentMoves()
         {
             Console.WriteLine("Current Moves:");
-            foreach (var move in MoveGenerator.GetMoves(CurrentBoard))
+            Console.WriteLine("Move, Visit Number, Value");
+            foreach (var child in CurrentBoard.Children)
             {
-                Console.WriteLine($"{FormatMoveForPrinting(move)}");
+                Console.Write($"{FormatMoveForPrinting(child.Move)}");
+                Console.WriteLine($" {child.VisitNumber}, {child.Value}");
             }
         }
     }

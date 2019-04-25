@@ -134,7 +134,7 @@ namespace AlphaChess
         // TODO
         public bool IsGameOver()
         {
-            return false;
+            return CurrentBoard.IsWhiteInCheckMate || CurrentBoard.IsBlackInCheckMate;
         }
 
         // Returns a Boolean representing if the move inputted is valid.
@@ -144,7 +144,7 @@ namespace AlphaChess
 
             foreach (Board Child in CurrentBoard.Children)
             {
-                if (Child.Move == Move)
+                if (Printer.FormatMoveForBoard(Child.Move) == Move)
                 {
                     IsValid = true;
                 }
@@ -169,7 +169,7 @@ namespace AlphaChess
 
             foreach (Board Child in CurrentBoard.Children)
             {
-                if (Child.Move == Move)
+                if (Printer.FormatMoveForBoard(Child.Move) == Move)
                 {
                     CurrentBoard = Child;
                     CurrentBoard.Parent = null;
@@ -196,7 +196,7 @@ namespace AlphaChess
 
             foreach (Board Child in CurrentBoard.Children)
             {
-                if (Child.Move == Move)
+                if (Printer.FormatMoveForBoard(Child.Move) == Move)
                 {
                     CurrentBoard = Child;
                     CurrentBoard.Parent = null;

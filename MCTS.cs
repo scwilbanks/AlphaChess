@@ -22,10 +22,31 @@ namespace AlphaChess
         public void MCTS()
         {
             Console.WriteLine("Conducting MCTS");
+
+
+            Board LeafBoard = MCTSDown(CurrentBoard);
+            MCTSUp(LeafBoard);
+
+        }
+
+        // TODO
+        public Board MCTSDown(Board CurrentBoard)
+        {
+
             if (CurrentBoard.Children == null)
             {
                 CurrentBoard.InitializeChildren();
             }
+
+            return CurrentBoard.Children[0];
+
         }
+
+        // TODO
+        public void MCTSUp(Board LeafBoard)
+        {
+
+        }
+
     }
 }

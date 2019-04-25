@@ -430,7 +430,6 @@ namespace AlphaChess.Moves
             MovesList.AddRange(GetKnightsMoves(board));
             MovesList.AddRange(GetPawnsMoves(board));
 
-
             return MovesList.ToArray();
         }
 

@@ -48,6 +48,12 @@ namespace AlphaChess.Moves
 
                         MoveList.Add(Tuple.Create(Piece, Candidate));
                         Current = Candidate;
+
+                        if (((Current & board.WhitePieces) > 0) || ((Current & board.BlackPieces) > 0))
+                        {
+                            break;
+                        }
+
                     }
                 }
             }
@@ -98,6 +104,11 @@ namespace AlphaChess.Moves
 
                         MoveList.Add(Tuple.Create(Piece, Candidate));
                         Current = Candidate;
+
+                        if (((Current & board.WhitePieces) > 0) || ((Current & board.BlackPieces) > 0))
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -147,6 +158,11 @@ namespace AlphaChess.Moves
 
                         MoveList.Add(Tuple.Create(Piece, Candidate));
                         Current = Candidate;
+
+                        if (((Current & board.WhitePieces) > 0) || ((Current & board.BlackPieces) > 0))
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -196,6 +212,11 @@ namespace AlphaChess.Moves
 
                         MoveList.Add(Tuple.Create(Piece, Candidate));
                         Current = Candidate;
+
+                        if (((Current & board.WhitePieces) > 0) || ((Current & board.BlackPieces) > 0))
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -235,6 +256,11 @@ namespace AlphaChess.Moves
 
                         MoveList.Add(Tuple.Create(Piece, Candidate));
                         Current = Candidate;
+
+                        if (((Current & board.WhitePieces) > 0) || ((Current & board.BlackPieces) > 0))
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -285,6 +311,11 @@ namespace AlphaChess.Moves
 
                         MoveList.Add(Tuple.Create(Piece, Candidate));
                         Current = Candidate;
+
+                        if (((Current & board.WhitePieces) > 0) || ((Current & board.BlackPieces) > 0))
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -336,6 +367,11 @@ namespace AlphaChess.Moves
 
                         MoveList.Add(Tuple.Create(Piece, Candidate));
                         Current = Candidate;
+
+                        if (((Current & board.WhitePieces) > 0) || ((Current & board.BlackPieces) > 0))
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -368,7 +404,7 @@ namespace AlphaChess.Moves
                   + (ulong)Math.Pow(2, 56);
 
                 // If on 8th Rank or a file
-                if ((Current >= Math.Pow(2, 8)) || ((Current & AFile) > 0))
+                if ((Current >= Math.Pow(2, 56)) || ((Current & AFile) > 0))
                 {
                     break;
                 }
@@ -386,6 +422,11 @@ namespace AlphaChess.Moves
 
                         MoveList.Add(Tuple.Create(Piece, Candidate));
                         Current = Candidate;
+
+                        if (((Current & board.WhitePieces) > 0) || ((Current & board.BlackPieces) > 0))
+                        {
+                            break;
+                        }
                     }
                 }
             }

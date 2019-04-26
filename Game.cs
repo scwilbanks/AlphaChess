@@ -123,6 +123,7 @@ namespace AlphaChess
 
             while (!IsGameOver())
             {
+
                 ExecuteTurn();
             }
 
@@ -220,6 +221,10 @@ namespace AlphaChess
                 ExecuteOpponentTurn();
             }
 
+            if (CurrentBoard.Children == null)
+            {
+                CurrentBoard.InitializeChildren();
+            }
 
             Console.WriteLine();
             // CurrentBoard.TurnIsWhite = !CurrentBoard.TurnIsWhite;

@@ -259,6 +259,11 @@ namespace AlphaChess.Moves
 
                         MoveList.Add(Tuple.Create(Piece, Candidate));
                         Current = Candidate;
+
+                        if (((Current & board.WhitePieces) > 0) || ((Current & board.BlackPieces) > 0))
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -297,6 +302,11 @@ namespace AlphaChess.Moves
 
                         MoveList.Add(Tuple.Create(Piece, Candidate));
                         Current = Candidate;
+
+                        if (((Current & board.WhitePieces) > 0) || ((Current & board.BlackPieces) > 0))
+                        {
+                            break;
+                        }
                     }
                 }
             }

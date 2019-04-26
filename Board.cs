@@ -64,10 +64,13 @@ namespace AlphaChess
         public bool BlackInCheckMate { get; set; }
 
         // MCTS Data
-        public int VisitNumber { get; set; }
+        public int Number { get; set; }
         public int Value { get; set; }
-        public double UCT { get; set; }
-        
+        public int WhiteWins {get; set;}
+        public int BlackWins { get; set; }
+        public double WhiteUCT { get; set; }
+        public double BlackUCT { get; set; }
+
 
         // Constructors
 
@@ -156,12 +159,10 @@ namespace AlphaChess
         {
             ulong Attacks = 0;
             
-            if (this.TurnIsWhite)
+
+            foreach (Tuple<ulong, ulong> Move in WhiteMoves)
             {
-                foreach (Tuple<ulong, ulong> Move in WhiteMoves)
-                {
-                    Attacks |= Move.Item2;
-                }
+                Attacks |= Move.Item2;
             }
 
             return Attacks;
@@ -173,13 +174,11 @@ namespace AlphaChess
         {
             ulong Attacks = 0;
 
-            if (!this.TurnIsWhite)
+            foreach (Tuple<ulong, ulong> Move in BlackMoves)
             {
-                foreach (Tuple<ulong, ulong> Move in BlackMoves)
-                {
-                    Attacks |= Move.Item2;
-                }
+                Attacks |= Move.Item2;
             }
+
 
             return Attacks;
 
@@ -207,15 +206,14 @@ namespace AlphaChess
 
             this.WhiteInCheck = IsWhiteInCheck();
             this.BlackInCheck = IsBlackInCheck();
-            this.WhiteInCheckMate = IsWhiteInCheckMate();
-            this.BlackInCheckMate = IsBlackInCheckMate();
+
 
 
             CanWhiteCastle = true;
             CanBlackCastle = true;
             WhiteInCheck = false;
             BlackInCheck = false;
-            VisitNumber = 0;
+            Number = 1;
             Value = 0;
         }
 
@@ -284,13 +282,12 @@ namespace AlphaChess
 
             this.WhiteInCheck = IsWhiteInCheck();
             this.BlackInCheck = IsBlackInCheck();
-            this.WhiteInCheckMate = IsWhiteInCheckMate();
-            this.BlackInCheckMate = IsBlackInCheckMate();
+
 
             this.CanWhiteCastle = true;
             this.CanBlackCastle = true;
 
-            this.VisitNumber = 0;
+            this.Number = 1;
             this.Value = this.CalcValue();
 
 
@@ -347,12 +344,11 @@ namespace AlphaChess
 
             this.WhiteInCheck = IsWhiteInCheck();
             this.BlackInCheck = IsBlackInCheck();
-            this.WhiteInCheckMate = IsWhiteInCheckMate();
-            this.BlackInCheckMate = IsBlackInCheckMate();
+
 
             this.CanWhiteCastle = true;
             this.CanBlackCastle = true;
-            this.VisitNumber = 0;
+            this.Number = 1;
             this.Value = this.CalcValue();
 
 
@@ -375,6 +371,10 @@ namespace AlphaChess
                     {
                         ChildrenList.Add(ChildBoard);
                     }
+                    else
+                    {
+                        
+                    }
                 }  
                 else if (!this.TurnIsWhite)
                 {
@@ -382,14 +382,25 @@ namespace AlphaChess
                     {
                         ChildrenList.Add(ChildBoard);
                     }
-                }
-                    
-            }
+                    else
+                    {
 
+                    }
+                }
+
+
+
+            }
+            if (ChildrenList.Count == 0)
+            {
+
+            }
 
 
             this.Children = ChildrenList.ToArray();
 
+            this.WhiteInCheckMate = IsWhiteInCheckMate();
+            this.BlackInCheckMate = IsBlackInCheckMate();
 
         }
 
@@ -397,7 +408,15 @@ namespace AlphaChess
 
         public bool IsWhiteInCheck()
         {
-            return ((this.WhiteKing & this.BlackAttacks) > 0);
+            bool IsInCheck = false;
+
+
+            if ((this.WhiteKing & this.BlackAttacks) > 0)
+            {
+                IsInCheck = true;
+            }
+
+            return IsInCheck;
 
 
         }
@@ -406,7 +425,14 @@ namespace AlphaChess
 
         public bool IsBlackInCheck()
         {
-            return ((this.BlackKing & this.WhiteAttacks) > 0);
+            bool IsInCheck = false;
+
+            if ((this.BlackKing & this.WhiteAttacks) > 0)
+            {
+                IsInCheck = true;
+            }
+
+            return IsInCheck;
 
         }
 
@@ -481,15 +507,16 @@ namespace AlphaChess
         }
 
         // TODO
-        public void UpdateUCT()
+        public void UpdateUCTs()
         {
-            double UCT = 0;
 
-            if (this.Parent != null)
-            {
-                //
-            }
+            double VisitedRate = Constants.C * Math.Sqrt(Math.Log(this.Parent.Number) / this.Number);
 
+            double WhiteWinRate = this.WhiteWins / this.Number;
+            double BlackWinRate = this.BlackWins / this.Number;
+
+            this.WhiteUCT = VisitedRate + WhiteWinRate;
+            this.BlackUCT = VisitedRate + BlackWinRate;
 
         }
     }

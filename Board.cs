@@ -287,7 +287,6 @@ namespace AlphaChess
             this.CanWhiteCastle = true;
             this.CanBlackCastle = true;
 
-            this.Number = 1;
             this.Value = this.CalcValue();
 
 
@@ -348,7 +347,6 @@ namespace AlphaChess
 
             this.CanWhiteCastle = true;
             this.CanBlackCastle = true;
-            this.Number = 1;
             this.Value = this.CalcValue();
 
 
@@ -399,8 +397,11 @@ namespace AlphaChess
 
             this.Children = ChildrenList.ToArray();
 
+            this.Number = 1;
             this.WhiteInCheckMate = IsWhiteInCheckMate();
             this.BlackInCheckMate = IsBlackInCheckMate();
+            this.WhiteWins = this.BlackInCheckMate ? 1 : 0;
+            this.BlackWins = this.WhiteInCheckMate ? 1 : 0;
 
         }
 

@@ -20,7 +20,7 @@ namespace AlphaChess
         // Initiates the Monte Carlo Tree Search, develops the tree
         public void MCTS()
         {
-            int max = 100;
+            int max = 1000;
             Console.WriteLine($"Conducting {max} MCTS iterations");
             for (int i= 0; i < max; i++)
             {
@@ -46,7 +46,7 @@ namespace AlphaChess
 
 
 
-            while (CurrentBoard.Number > 1) //change this because "LeafBoard" will have children
+            while (CurrentBoard.Number > 1 && CurrentBoard.Children.Count() > 0)
             {
 
 
@@ -92,20 +92,28 @@ namespace AlphaChess
 
         public void MCTSProcessLeaf(Board LeafBoard)
         {
-            
-            LeafBoard.Number = LeafBoard.Children.Length;
-            LeafBoard.WhiteWins = LeafBoard.BlackInCheckMate ? 1 : 0;
-            LeafBoard.BlackWins = LeafBoard.WhiteInCheckMate ? 1 : 0;
 
-            foreach (Board Child in LeafBoard.Children)
+            if (LeafBoard.Children.Count() > 0)
             {
-                Child.InitializeChildren();
+                LeafBoard.Number = 0;
+                LeafBoard.WhiteWins = 0;
+                LeafBoard.BlackWins = 0;
 
-                LeafBoard.WhiteWins += Child.BlackInCheckMate ? 1 : 0;
-                LeafBoard.BlackWins += Child.WhiteInCheckMate ? 1 : 0;
+                foreach (Board Child in LeafBoard.Children)
+                {
+                    Child.InitializeChildren();
+
+                    LeafBoard.Number += 1;
+                    LeafBoard.WhiteWins += Child.WhiteWins;
+                    LeafBoard.BlackWins += Child.BlackWins;
+                }
             }
-
-
+            else
+            {
+                LeafBoard.Number += 1;
+                LeafBoard.WhiteWins += LeafBoard.WhiteWins > 0 ? 1 : 0;
+                LeafBoard.BlackWins += LeafBoard.BlackWins > 0 ? 1 : 0;
+            }
 
         }
 
@@ -116,23 +124,24 @@ namespace AlphaChess
             int WhiteWin = LeafBoard.WhiteWins;
             int BlackWin = LeafBoard.BlackWins;
             int NewBoards = LeafBoard.Children.Length;
-            Board CurrentBoard = LeafBoard.Parent;
-            
 
+            Board CurrentBoard = LeafBoard.Parent;
 
             while (CurrentBoard != null)
             {
 
-                CurrentBoard.Number += NewBoards;
+                CurrentBoard.Number += LeafBoard.Number-1;
+                CurrentBoard.WhiteWins += LeafBoard.WhiteWins;
+                CurrentBoard.BlackWins += LeafBoard.BlackWins;
 
                 foreach(Board Child in CurrentBoard.Children)
                 {
-                    Child.WhiteWins += WhiteWin;
-                    Child.BlackWins += BlackWin;
+                    //Child.WhiteWins += WhiteWin;
+                    //Child.BlackWins += BlackWin;
 
-                    if (Child.Children.Length == 0)
-                    {
-                    }
+                    //if (Child.Children.Length == 0)
+                    //{
+                    //}
                     Child.UpdateUCTs();
                 }
 

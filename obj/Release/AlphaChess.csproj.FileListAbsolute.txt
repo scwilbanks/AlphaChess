@@ -1,0 +1,7 @@
+C:\Users\WWStudent\AlphaChess\bin\Release\AlphaChess.exe.config
+C:\Users\WWStudent\AlphaChess\bin\Release\AlphaChess.exe
+C:\Users\WWStudent\AlphaChess\bin\Release\AlphaChess.pdb
+C:\Users\WWStudent\AlphaChess\obj\Release\AlphaChess.csprojAssemblyReference.cache
+C:\Users\WWStudent\AlphaChess\obj\Release\AlphaChess.csproj.CoreCompileInputs.cache
+C:\Users\WWStudent\AlphaChess\obj\Release\AlphaChess.exe
+C:\Users\WWStudent\AlphaChess\obj\Release\AlphaChess.pdb

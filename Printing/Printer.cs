@@ -259,13 +259,19 @@ namespace AlphaChess.Printing
         // Prints the current possible moves to the console
         public void PrintCurrentMoves()
         {
+
             Console.WriteLine("Current Moves:");
-            Console.WriteLine("Move, Visit Number, WhiteWins, WhiteUCT");
+
+            Console.Write($"Move, Visit Number ");
+            Console.Write($"{(CurrentBoard.TurnIsWhite ? "WhiteWins" : "BlackWins")}");
+            Console.WriteLine($"{(CurrentBoard.TurnIsWhite ? " WhiteUCT" : " BlackUCT")}");
             foreach (var child in CurrentBoard.Children)
             {
                 Console.Write($"{FormatMoveForPrinting(child.Move)}");
-                Console.WriteLine($" {child.Number}, {child.WhiteWins}, {child.WhiteUCT}");
+                Console.WriteLine($" {child.Number}, {(CurrentBoard.TurnIsWhite ? child.WhiteWins : child.BlackWins)}, {(CurrentBoard.TurnIsWhite ? child.WhiteUCT : child.BlackUCT)}");
             }
+
+
         }
     }
 }

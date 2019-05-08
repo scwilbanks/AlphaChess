@@ -511,10 +511,14 @@ namespace AlphaChess
         public void UpdateUCTs()
         {
 
+            if (this.WhiteWins > 0 || this.BlackWins > 0)
+            {
+
+            }
             double VisitedRate = Constants.C * Math.Sqrt(Math.Log(this.Parent.Number) / this.Number);
 
-            double WhiteWinRate = this.WhiteWins / this.Number;
-            double BlackWinRate = this.BlackWins / this.Number;
+            double WhiteWinRate = (double)this.WhiteWins / (double)this.Number;
+            double BlackWinRate = (double)this.BlackWins / (double)this.Number;
 
             this.WhiteUCT = VisitedRate + WhiteWinRate;
             this.BlackUCT = VisitedRate + BlackWinRate;

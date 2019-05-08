@@ -8,7 +8,7 @@ namespace AlphaChess
 {
     public static class Constants
     {
-        public const double C = .5;
+        public const double C = .1;
 
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AlphaChess
@@ -21,78 +22,102 @@ namespace AlphaChess
         public void MCTS()
         {
             int max = 1000;
+            Task[] tasks = new Task[max];
+
             Console.WriteLine($"Conducting {max} MCTS iterations");
-            for (int i= 0; i < max; i++)
+            for (int i = 0; i < max; i++)
             {
-                MCTSIteration();
+                //Console.WriteLine(i);
+                tasks[i] = Task.Run( () => MCTSIteration());
             }
+            Task.WaitAll(tasks);
         }
 
 
         public void MCTSIteration()
         {
-            
-
-
             Board LeafBoard = MCTSDown(CurrentBoard);
             MCTSProcessLeaf(LeafBoard);
             MCTSUp(LeafBoard);
-
         }
 
-        // TODO
+        // TODO: Shouldn't choose a leaf that has already been entered
         public Board MCTSDown(Board CurrentBoard)
         {
-
-
-
             while (CurrentBoard.Number > 1 && CurrentBoard.Children.Count() > 0)
             {
 
-
                 Board HighestUCTBoard = null;
+                object HighestUCTBoardLock = new object();
+                Monitor.Enter(HighestUCTBoardLock);
 
-                foreach (Board Child in CurrentBoard.Children)
+                while (HighestUCTBoard == null)
                 {
-
-                    if (CurrentBoard.TurnIsWhite)
+                    foreach (Board Child in CurrentBoard.Children)
                     {
-                        if (HighestUCTBoard == null || Child.WhiteUCT > HighestUCTBoard.WhiteUCT)
+                        if (CurrentBoard.TurnIsWhite)
                         {
-                            HighestUCTBoard = Child;
+                            if (HighestUCTBoard == null || Child.WhiteUCT > HighestUCTBoard.WhiteUCT)
+                            {
+                                if (Monitor.TryEnter(Child))
+                                {
+                                    if (HighestUCTBoard == null)
+                                    {
+                                        Monitor.Exit(HighestUCTBoardLock);
+                                    }
+                                    else
+                                    {
+                                        Monitor.Exit(HighestUCTBoard);
+                                    }
+                                    
+                                    HighestUCTBoard = Child;
+                                    Monitor.Enter(HighestUCTBoard);
+                                    Monitor.Exit(Child);
+                                }
+                                
+                            }
                         }
-                    }
-                    else if (!CurrentBoard.TurnIsWhite)
-                    {
-                        if (HighestUCTBoard == null || Child.BlackUCT > HighestUCTBoard.BlackUCT)
+                        else if (!CurrentBoard.TurnIsWhite)
                         {
-                            HighestUCTBoard = Child;
+                            if (HighestUCTBoard == null || Child.BlackUCT > HighestUCTBoard.BlackUCT)
+                            {
+                                if (Monitor.TryEnter(Child))
+                                {
+                                    if (HighestUCTBoard == null)
+                                    {
+                                        Monitor.Exit(HighestUCTBoardLock);
+                                    }
+                                    else
+                                    {
+                                        Monitor.Exit(HighestUCTBoard);
+                                    }
+                                    HighestUCTBoard = Child;
+                                    Monitor.Enter(HighestUCTBoard);
+                                    Monitor.Exit(Child);
+                                }
+                            }
                         }
+                        else
+                        {
+                            throw new Exception();
+                        }
+
+
                     }
-                    else
-                    {
-                        throw new Exception();
-                    }
-
-
-
                 }
-                
 
 
                 CurrentBoard = HighestUCTBoard;
 
             }
-
             
             return CurrentBoard;
 
         }
 
-
+        // Lock here, to prevent another task from selecting this lea
         public void MCTSProcessLeaf(Board LeafBoard)
         {
-
             if (LeafBoard.Children.Count() > 0)
             {
                 LeafBoard.Number = 0;
@@ -121,31 +146,36 @@ namespace AlphaChess
         public void MCTSUp(Board LeafBoard)
         {
 
-            int WhiteWin = LeafBoard.WhiteWins;
-            int BlackWin = LeafBoard.BlackWins;
-            int NewBoards = LeafBoard.Children.Length;
+            int WhiteWins = LeafBoard.WhiteWins;
+            int BlackWins = LeafBoard.BlackWins;
+            int NewBoards = LeafBoard.Number - 1;
 
+            
             Board CurrentBoard = LeafBoard.Parent;
 
             while (CurrentBoard != null)
             {
+                Monitor.Enter(CurrentBoard);
+                CurrentBoard.Number += NewBoards;
+                CurrentBoard.WhiteWins += WhiteWins;
+                CurrentBoard.BlackWins += BlackWins;
+                Monitor.Exit(CurrentBoard);
 
-                CurrentBoard.Number += LeafBoard.Number-1;
-                CurrentBoard.WhiteWins += LeafBoard.WhiteWins;
-                CurrentBoard.BlackWins += LeafBoard.BlackWins;
-
-                foreach(Board Child in CurrentBoard.Children)
+                foreach (Board Child in CurrentBoard.Children)
                 {
-                    //Child.WhiteWins += WhiteWin;
-                    //Child.BlackWins += BlackWin;
-
-                    //if (Child.Children.Length == 0)
-                    //{
-                    //}
-                    Child.UpdateUCTs();
+                    if (Monitor.IsEntered(Child))
+                    {
+                        Child.UpdateUCTs();
+                    }
+                    else
+                    {
+                        Monitor.Enter(Child);
+                        Child.UpdateUCTs();
+                    }
+                    Monitor.Exit(Child);
                 }
 
-                
+
                 // Go up
                 CurrentBoard = CurrentBoard.Parent;
             }
